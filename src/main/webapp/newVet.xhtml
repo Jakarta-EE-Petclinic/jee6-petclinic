@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<head>
+    <title>Petclinic</title>
+</head>
+<body>
+<h:outputText value="Petclinic"/>
+<h:form>
+    <h:panelGroup>
+        <h:messages id="messages" layout="block" errorStyle="color: red"/>
+    </h:panelGroup>
+    <h:panelGrid id="grid" columns="2">
+        <h:outputLabel value="firstName:" for="firstName"/>
+        <h:inputText id="firstName"
+                     value="#{vetController.vet.firstName}"/>
+        <h:outputLabel value="lastName:" for="lastName"/>
+        <h:inputText id="lastName"
+                     value="#{vetController.vet.lastName}"/>
+    </h:panelGrid>
+    <h:commandButton id="save" value="Save"
+                     action="#{vetController.saveNewVet}"/>
+
+</h:form>
+</body>
+</html>
