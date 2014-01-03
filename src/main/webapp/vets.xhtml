@@ -4,30 +4,12 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets">
-<head>
-    <title>Petclinic</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet" />
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-</head>
-<body>
-<div class="container">
 
-<h:outputText value="Petclinic"/>
-<div class="navbar">
-    <div class="navbar-inner">
-        <ul class="nav">
-            <li><a href="./"><i class="icon-home"></i> Home</a></li>
-            <li><a href="ownersFind.xhtml"><i class="icon-search"></i> Find owners</a></li>
-            <li><a href="vets.xhtml"><i class="icon-th-list"></i> Veterinarians</a></li>
-            <li><a href="#" title="not available yet. Work in progress!!"><i class="icon-question-sign"></i> Help</a></li>
-        </ul>
-    </div>
-</div>
+<h:body>
+
+<ui:composition template="./template.xhtml">
+
+    <ui:define name="content">
 <h:form>
     <h:dataTable value="#{vetController.vets}" var="vet" styleClass="table table-striped table-hover">
         <h:column>
@@ -51,6 +33,9 @@
     </h:dataTable>
     <h:commandLink action="#{vetController.getNewVetForm}">Add New Vet</h:commandLink>
 </h:form>
-</div>
-</body>
+    </ui:define>
+
+</ui:composition>
+
+</h:body>
 </html>
