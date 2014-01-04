@@ -72,4 +72,17 @@ public class VetController implements Serializable {
     public List<Vet> getVets(){
         return vetDao.getAll();
     }
+
+    public String getEditForm(long id){
+        this.vet = vetDao.findById(id);
+        return "editVet.xhtml";
+    }
+
+    public String deleteVet(long id){
+        this.vet = vetDao.findById(id);
+        this.vet.removeSpecialties();
+        vetDao.update(this.vet);
+        vetDao.delete(id);
+        return "vets.xhtml";
+    }
 }

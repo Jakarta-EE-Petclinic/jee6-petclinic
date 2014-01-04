@@ -19,15 +19,10 @@ import java.util.List;
 @ApplicationScoped
 public class SpecialtyParser {
 
-    private List<Specialty> specialtyList;
-
     @EJB
     private SpecialtyDao specialtyDao;
 
     public synchronized List<Specialty> getSpecialtyList() {
-        if(specialtyList==null){
-            specialtyList=specialtyDao.getAll();
-        }
-        return specialtyList;
+        return specialtyDao.getAll();
     }
 }

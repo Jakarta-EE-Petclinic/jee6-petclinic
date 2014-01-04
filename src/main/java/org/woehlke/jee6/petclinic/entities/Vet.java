@@ -73,6 +73,10 @@ public class Vet {
         getSpecialtiesInternal().add(specialty);
     }
 
+    public void removeSpecialties(){
+        this.specialties = new HashSet<Specialty>();
+    }
+
     public Long getId() {
         return id;
     }
