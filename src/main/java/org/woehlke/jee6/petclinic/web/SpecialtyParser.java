@@ -1,6 +1,12 @@
 package org.woehlke.jee6.petclinic.web;
 
+import org.woehlke.jee6.petclinic.dao.SpecialtyDao;
 import org.woehlke.jee6.petclinic.entities.Specialty;
+
+import javax.ejb.EJB;
+import javax.faces.bean.ApplicationScoped;
+import javax.faces.bean.ManagedBean;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -9,15 +15,19 @@ import org.woehlke.jee6.petclinic.entities.Specialty;
  * Time: 12:53
  * To change this template use File | Settings | File Templates.
  */
+@ManagedBean
+@ApplicationScoped
 public class SpecialtyParser {
 
-    private Iterable<? extends Specialty> specialtyList;
+    private List<Specialty> specialtyList;
 
-    public Iterable<? extends Specialty> getSpecialtyList() {
+    @EJB
+    private SpecialtyDao specialtyDao;
+
+    public synchronized List<Specialty> getSpecialtyList() {
+        if(specialtyList==null){
+            specialtyList=specialtyDao.getAll();
+        }
         return specialtyList;
-    }
-
-    public void setSpecialtyList(Iterable<? extends Specialty> specialtyList) {
-        this.specialtyList = specialtyList;
     }
 }
