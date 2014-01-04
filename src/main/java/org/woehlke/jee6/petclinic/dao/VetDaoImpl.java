@@ -6,6 +6,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -26,8 +27,7 @@ public class VetDaoImpl implements VetDao {
 
     @Override
     public List<Vet> getAll(){
-        Query q = entityManager.createQuery("select v from Vet v");
-        @SuppressWarnings("unchecked")
+        TypedQuery<Vet> q = entityManager.createQuery("select v from Vet v", Vet.class);
         List<Vet> list =  q.getResultList();
         return list;
     }
@@ -46,8 +46,8 @@ public class VetDaoImpl implements VetDao {
 
     @Override
     public Vet findById(long id) {
-        Vet address = entityManager.find(Vet.class, id);
-        return address;
+        Vet vet = entityManager.find(Vet.class, id);
+        return vet;
     }
 
     @Override
