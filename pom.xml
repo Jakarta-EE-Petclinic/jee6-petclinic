@@ -15,18 +15,78 @@
         <javadoc-phase>compile</javadoc-phase>
     </properties>
 
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Define the version of JBoss' Java EE 6 APIs we want to import.
+            Any dependencies from org.jboss.spec will have their version defined by this
+            BOM -->
+            <!-- JBoss distributes a complete set of Java EE 6 APIs including
+               a Bill of Materials (BOM). A BOM specifies the versions of a "stack" (or
+               a collection) of artifacts. We use this here so that we always get the correct
+               versions of artifacts. Here we use the jboss-javaee-web-6.0 stack (you can
+               read this as the JBoss stack of the Java EE Web Profile 6 APIs), and we use
+               version 2.0.0.Beta1 which is the latest release of the stack. You can actually
+               use this stack with any version of JBoss AS that implements Java EE 6, not
+               just JBoss AS 7! -->
+            <dependency>
+                <groupId>org.jboss.spec</groupId>
+                <artifactId>jboss-javaee-web-6.0</artifactId>
+                <version>2.0.0.Final</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.richfaces</groupId>
+                <artifactId>richfaces-bom</artifactId>
+                <version>4.0.0.Final</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
+
         <dependency>
-            <groupId>org.jboss.spec</groupId>
-            <artifactId>jboss-javaee-6.0</artifactId>
-            <version>1.0.0.Final</version>
-            <type>pom</type>
+            <groupId>javax</groupId>
+            <artifactId>javaee-web-api</artifactId>
+            <version>6.0</version>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>4.2.0.Final</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.richfaces.ui</groupId>
+            <artifactId>richfaces-components-ui</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.richfaces.core</groupId>
+            <artifactId>richfaces-core-impl</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.enterprise</groupId>
+            <artifactId>cdi-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jboss.spec.javax.faces</groupId>
+            <artifactId>jboss-jsf-api_2.0_spec</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jboss.spec.javax.annotation</groupId>
+            <artifactId>jboss-annotations-api_1.1_spec</artifactId>
             <scope>provided</scope>
         </dependency>
     </dependencies>
