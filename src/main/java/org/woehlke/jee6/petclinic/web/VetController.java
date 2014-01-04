@@ -7,6 +7,7 @@ import org.woehlke.jee6.petclinic.entities.Vet;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -30,6 +31,26 @@ public class VetController implements Serializable {
 
     private Vet vet;
 
+    @ManagedProperty(value = "#{specialtyParser.specialtyList}")
+    private List<Specialty> specialties;
+    private List<Specialty> selectedSpecialties;
+
+    public List<Specialty> getSpecialties() {
+        return specialties;
+    }
+
+    public void setSpecialties(List<Specialty> specialties) {
+        this.specialties = specialties;
+    }
+
+    public List<Specialty> getSelectedSpecialties() {
+        return selectedSpecialties;
+    }
+
+    public void setSelectedSpecialties(List<Specialty> selectedSpecialties) {
+        this.selectedSpecialties = selectedSpecialties;
+    }
+
     public Vet getVet() {
         return vet;
     }
@@ -49,6 +70,7 @@ public class VetController implements Serializable {
     }
 
     public List<Vet> getVets(){
+        /**
         Specialty s1 = new Specialty();
         s1.setName("dentistry");
         Specialty s2 = new Specialty();
@@ -76,6 +98,7 @@ public class VetController implements Serializable {
         list.add(v2);
         list.add(v3);
         list.addAll(vetDao.getAll());
-        return list;
+        return list; */
+        return vetDao.getAll();
     }
 }
