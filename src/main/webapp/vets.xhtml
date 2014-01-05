@@ -45,7 +45,11 @@
             <h:commandLink action="#{vetController.deleteVet(vet.id)}"><i class="icon-trash"/></h:commandLink>
         </h:column>
     </h:dataTable>
-    <i class="icon-plus-sign" /><h:commandLink action="#{vetController.getNewVetForm}">Add New Vet</h:commandLink>
+    <i class="icon-plus-sign" /><h:commandLink action="#{vetController.getNewVetForm}">Add New Vet</h:commandLink><br/>
+    <br/>
+    <i class="icon-circle-arrow-right" /><h:outputLink value="./rest/vets/xml">View as XML</h:outputLink>
+    <i class="icon-circle-arrow-right" /><h:outputLink value="./rest/vets/json">View as JSON</h:outputLink>
+
 </h:form>
     </ui:define>
 

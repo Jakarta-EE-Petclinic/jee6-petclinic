@@ -17,13 +17,17 @@ import java.util.List;
 @XmlRootElement
 public class Vets {
 
-    private List<Vet> vets;
+    private List<Vet> vetList;
 
     @XmlElement
     public List<Vet> getVetList() {
-        if (vets == null) {
-            vets = new ArrayList<Vet>();
+        if (vetList == null) {
+            vetList = new ArrayList<Vet>();
         }
-        return vets;
+        return vetList;
+    }
+
+    public void setVetList(List<Vet> vetList) {
+        this.vetList = vetList;
     }
 }
