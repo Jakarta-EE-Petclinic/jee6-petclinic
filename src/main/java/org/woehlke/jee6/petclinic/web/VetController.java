@@ -1,5 +1,6 @@
 package org.woehlke.jee6.petclinic.web;
 
+import com.sun.jmx.remote.internal.ArrayQueue;
 import org.woehlke.jee6.petclinic.dao.VetDao;
 import org.woehlke.jee6.petclinic.entities.Specialty;
 import org.woehlke.jee6.petclinic.entities.Vet;
@@ -10,6 +11,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -75,7 +77,17 @@ public class VetController implements Serializable {
 
     public String getEditForm(long id){
         this.vet = vetDao.findById(id);
+        selectedSpecialties = vet.getSpecialties();
         return "editVet.xhtml";
+    }
+
+    public String saveEditedVet(){
+        this.vet.removeSpecialties();
+        for(Specialty specialty:selectedSpecialties){
+            this.vet.addSpecialty(specialty);
+        }
+        vetDao.update(this.vet);
+        return "vets.xhtml";
     }
 
     public String deleteVet(long id){
