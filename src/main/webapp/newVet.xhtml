@@ -19,6 +19,7 @@
                 <h:panelGroup>
                     <h:messages id="messages" layout="block" errorStyle="color: red"/>
                 </h:panelGroup>
+
                 <h:panelGrid id="grid" columns="2">
                     <h:outputLabel value="firstName:" for="firstName"/>
                     <h:inputText id="firstName"
@@ -27,8 +28,6 @@
                     <h:inputText id="lastName"
                                  value="#{vetController.vet.lastName}"/>
                 </h:panelGrid>
-                <h:commandButton id="save" value="Save"
-                                 action="#{vetController.saveNewVet}"/>
 
                 <rich:pickList value="#{vetController.selectedSpecialties}"
                                sourceCaption="Available specialties"
@@ -39,6 +38,8 @@
                     <f:converter converterId="SpecialtyConverter" />
                 </rich:pickList>
 
+                <h:commandButton id="save" value="Save"
+                                 action="#{vetController.saveNewVet}" styleClass="btn"/>
             </h:form>
         </ui:define>
 

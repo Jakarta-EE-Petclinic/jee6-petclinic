@@ -1,5 +1,7 @@
 package org.woehlke.jee6.petclinic.dao;
 
+import org.hibernate.search.jpa.FullTextEntityManager;
+import org.hibernate.search.query.dsl.QueryBuilder;
 import org.woehlke.jee6.petclinic.entities.Vet;
 
 import javax.ejb.Stateless;
@@ -53,5 +55,24 @@ public class VetDaoImpl implements VetDao {
     @Override
     public void update(Vet vet) {
         entityManager.merge(vet);
+    }
+
+    @Override
+    public List<Vet> search(String searchterm){
+        FullTextEntityManager fullTextEntityManager =
+                org.hibernate.search.jpa.Search.getFullTextEntityManager(entityManager);
+        QueryBuilder qb = fullTextEntityManager.getSearchFactory()
+                .buildQueryBuilder().forEntity( Vet.class ).get();
+        org.apache.lucene.search.Query query = qb
+                .keyword()
+                .onFields("firstName", "lastName", "specialties.name")
+                .matching(searchterm)
+                .createQuery();
+        // wrap Lucene query in a javax.persistence.Query
+        javax.persistence.Query persistenceQuery =
+                fullTextEntityManager.createFullTextQuery(query, Vet.class);
+        // execute search
+        List result = persistenceQuery.getResultList();
+        return  result;
     }
 }

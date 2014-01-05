@@ -22,4 +22,6 @@ public interface VetDao {
     Vet findById(long id);
 
     void update(Vet vet);
+
+    List<Vet> search(String searchterm);
 }

@@ -1,5 +1,6 @@
 package org.woehlke.jee6.petclinic.entities;
 
+import org.hibernate.search.annotations.Field;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -19,6 +20,7 @@ public class Specialty implements Comparable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Field
     @NotEmpty
     @Column(name = "name")
     private String name;
@@ -67,5 +69,13 @@ public class Specialty implements Comparable {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Specialty{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

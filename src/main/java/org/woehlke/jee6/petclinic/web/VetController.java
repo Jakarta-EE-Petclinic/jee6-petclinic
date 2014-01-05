@@ -1,5 +1,6 @@
 package org.woehlke.jee6.petclinic.web;
 
+import org.woehlke.jee6.petclinic.dao.SpecialtyDao;
 import org.woehlke.jee6.petclinic.dao.VetDao;
 import org.woehlke.jee6.petclinic.entities.Specialty;
 import org.woehlke.jee6.petclinic.entities.Vet;
@@ -27,7 +28,14 @@ public class VetController implements Serializable {
     @EJB
     private VetDao vetDao;
 
+    @EJB
+    private SpecialtyDao specialtyDao;
+
     private Vet vet;
+
+    private String searchterm;
+
+    private List<Vet> vets;
 
     @ManagedProperty(value = "#{specialtyParser.specialtyList}")
     private List<Specialty> specialties;
@@ -59,7 +67,8 @@ public class VetController implements Serializable {
 
     public String getNewVetForm(){
         this.vet = new Vet();
-        selectedSpecialties = new ArrayList<Specialty>();
+        this.specialties = specialtyDao.getAll();
+        this.selectedSpecialties = new ArrayList<Specialty>();
         return "newVet.xhtml";
     }
 
@@ -68,11 +77,15 @@ public class VetController implements Serializable {
             this.vet.addSpecialty(specialty);
         }
         vetDao.addNew(this.vet);
+        this.vets = vetDao.getAll();
         return "vets.xhtml";
     }
 
     public List<Vet> getVets(){
-        return vetDao.getAll();
+        if(this.vets == null) {
+            this.vets = vetDao.getAll();
+        }
+        return this.vets;
     }
 
     public String getEditForm(long id){
@@ -87,6 +100,7 @@ public class VetController implements Serializable {
             this.vet.addSpecialty(specialty);
         }
         vetDao.update(this.vet);
+        this.vets = vetDao.getAll();
         return "vets.xhtml";
     }
 
@@ -95,6 +109,20 @@ public class VetController implements Serializable {
         this.vet.removeSpecialties();
         vetDao.update(this.vet);
         vetDao.delete(id);
+        this.vets = vetDao.getAll();
+        return "vets.xhtml";
+    }
+
+    public String getSearchterm() {
+        return searchterm;
+    }
+
+    public void setSearchterm(String searchterm) {
+        this.searchterm = searchterm;
+    }
+
+    public String search(){
+        this.vets = vetDao.search(searchterm);
         return "vets.xhtml";
     }
 }

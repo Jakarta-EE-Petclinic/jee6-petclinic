@@ -13,6 +13,10 @@
 
     <ui:define name="content">
 <h:form>
+    <h:panelGrid id="grid" columns="2" style="vertical-align: middle">
+        <h:inputText value="#{vetController.searchterm}" />
+        <h:commandButton action="#{vetController.search}" value="Search" styleClass="btn"/>
+    </h:panelGrid>
     <h:dataTable value="#{vetController.vets}" var="vet" styleClass="table table-striped table-hover">
         <h:column>
             <f:facet name="header">

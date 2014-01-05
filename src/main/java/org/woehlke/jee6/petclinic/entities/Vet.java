@@ -1,5 +1,6 @@
 package org.woehlke.jee6.petclinic.entities;
 
+import org.hibernate.search.annotations.*;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -15,6 +16,7 @@ import java.util.*;
  */
 @Entity
 @Table(name = "vets")
+@Indexed
 public class Vet {
 
     @Id
@@ -23,12 +25,15 @@ public class Vet {
 
     @Column(name = "first_name")
     @NotEmpty
+    @Field(index=Index.YES, analyze=Analyze.YES, store=Store.NO)
     private String firstName;
 
     @Column(name = "last_name")
     @NotEmpty
+    @Field(index= Index.YES, analyze= Analyze.YES, store= Store.NO)
     private String lastName;
 
+    @IndexedEmbedded
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "vet_specialties",
             joinColumns = @JoinColumn(name = "vet_id"),
@@ -103,5 +108,15 @@ public class Vet {
 
     public void setSpecialties(Set<Specialty> specialties) {
         this.specialties = specialties;
+    }
+
+    @Override
+    public String toString() {
+        return "Vet{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", specialties=" + specialties +
+                '}';
     }
 }
