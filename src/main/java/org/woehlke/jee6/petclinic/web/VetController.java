@@ -1,6 +1,5 @@
 package org.woehlke.jee6.petclinic.web;
 
-import com.sun.jmx.remote.internal.ArrayQueue;
 import org.woehlke.jee6.petclinic.dao.VetDao;
 import org.woehlke.jee6.petclinic.entities.Specialty;
 import org.woehlke.jee6.petclinic.entities.Vet;
@@ -60,6 +59,7 @@ public class VetController implements Serializable {
 
     public String getNewVetForm(){
         this.vet = new Vet();
+        selectedSpecialties = new ArrayList<Specialty>();
         return "newVet.xhtml";
     }
 

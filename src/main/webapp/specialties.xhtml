@@ -20,6 +20,18 @@
                         </f:facet>
                         <h:outputText value="#{specialty.name}"/>
                     </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Edit"/>
+                        </f:facet>
+                        <h:commandLink action="#{specialtyController.getEditForm(specialty.id)}"><i class="icon-edit"/></h:commandLink>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Delete"/>
+                        </f:facet>
+                        <h:commandLink action="#{specialtyController.delete(specialty.id)}"><i class="icon-trash"/></h:commandLink>
+                    </h:column>
                 </h:dataTable>
                 <i class="icon-plus-sign" /><h:commandLink action="#{specialtyController.getNewSpecialtyForm}">Add New Specialty</h:commandLink>
             </h:form>

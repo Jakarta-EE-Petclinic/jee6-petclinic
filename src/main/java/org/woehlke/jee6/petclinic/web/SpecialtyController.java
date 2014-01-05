@@ -4,8 +4,11 @@ import org.woehlke.jee6.petclinic.dao.SpecialtyDao;
 import org.woehlke.jee6.petclinic.entities.Specialty;
 
 import javax.ejb.EJB;
+import javax.ejb.EJBTransactionRolledbackException;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.List;
 
@@ -24,6 +27,8 @@ public class SpecialtyController implements Serializable {
     private SpecialtyDao specialtyDao;
 
     private Specialty specialty;
+
+    private FacesContext facesContext;
 
     public Specialty getSpecialty() {
         return specialty;
@@ -44,6 +49,26 @@ public class SpecialtyController implements Serializable {
 
     public String saveNewSpecialty(){
         specialtyDao.addNew(this.specialty);
+        return "specialties.xhtml";
+    }
+
+    public String getEditForm(long id){
+        this.specialty = specialtyDao.findById(id);
+        return "editSpecialty.xhtml";
+    }
+
+    public String saveEditedSpecialty(){
+        specialtyDao.update(this.specialty);
+        return "specialties.xhtml";
+    }
+
+    public String delete(long id){
+        try {
+            specialtyDao.delete(id);
+        } catch (EJBTransactionRolledbackException e) {
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            ctx.addMessage(null, new FacesMessage("cannot delete, object still in use"));
+        }
         return "specialties.xhtml";
     }
 }
