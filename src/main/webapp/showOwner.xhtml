@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+
+<h:body>
+
+    <ui:composition template="./template.xhtml">
+
+        <ui:define name="content">
+            <h:form>
+                <h:panelGroup>
+                    <h:messages id="messages" layout="block" errorStyle="color: red"/>
+                </h:panelGroup>
+
+                <h:panelGrid id="grid" columns="2" styleClass="table table-striped">
+                    <h:outputLabel value="firstName:" for="firstName"/>
+                    <h:outputText id="firstName"
+                                  value="#{ownerController.owner.firstName}" />
+                    <h:outputLabel value="lastName:" for="lastName"/>
+                    <h:outputText id="lastName"
+                                 value="#{ownerController.owner.lastName}"/>
+                    <h:outputLabel value="address:" for="address"/>
+                    <h:outputText id="address"
+                                 value="#{ownerController.owner.address}"/>
+                    <h:outputLabel value="city:" for="city"/>
+                    <h:outputText id="city"
+                                 value="#{ownerController.owner.city}"/>
+                    <h:outputLabel value="telephone:" for="telephone"/>
+                    <h:outputText id="telephone"
+                                 value="#{ownerController.owner.telephone}"/>
+                </h:panelGrid>
+
+                <h:commandButton id="edit" value="Edit"
+                                 action="#{ownerController.getEditForm()}" styleClass="btn"/>
+
+                <h:commandButton id="addPet" value="add New Pet"
+                                 action="#{ownerController.getAddNewPetForm()}" styleClass="btn"/>
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+
+</h:body>
+</html>

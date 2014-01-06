@@ -77,20 +77,28 @@ public class OwnerController implements Serializable {
         return "owners.xhtml";
     }
 
-    public String getEditForm(long id){
+    public String showOwner(long id){
         this.owner = ownerDao.findById(id);
+        return "showOwner.xhtml";
+    }
+
+    public String getEditForm(){
         return "editOwner.xhtml";
     }
 
     public String saveEditedOwner(){
         ownerDao.update(this.owner);
         this.ownerList = ownerDao.getAll();
-        return "owners.xhtml";
+        return "showOwner.xhtml";
     }
 
     public String delete(long id){
         ownerDao.delete(id);
         this.ownerList = ownerDao.getAll();
         return "owners.xhtml";
+    }
+
+    public String getAddNewPetForm(){
+        return "addNewPet.xhtml";
     }
 }

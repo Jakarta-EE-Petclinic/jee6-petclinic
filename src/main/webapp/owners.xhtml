@@ -22,15 +22,12 @@
                 <h:dataTable value="#{ownerController.ownerList}" var="owner" styleClass="table table-striped table-hover">
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Vorname"/>
-                        </f:facet>
-                        <h:outputText value="#{owner.firstName}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
                             <h:outputText value="Name"/>
                         </f:facet>
-                        <h:outputText value="#{owner.lastName}"/>
+                        <h:commandLink action="#{ownerController.showOwner(owner.id)}">
+                            <h:outputText value="#{owner.firstName}"/>&nbsp;
+                            <h:outputText value="#{owner.lastName}"/>
+                        </h:commandLink>
                     </h:column>
                     <h:column>
                         <f:facet name="header">
@@ -49,18 +46,6 @@
                             <h:outputText value="Telephone"/>
                         </f:facet>
                         <h:outputText value="#{owner.telephone}"/>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Edit"/>
-                        </f:facet>
-                        <h:commandLink action="#{ownerController.getEditForm(owner.id)}"><i class="icon-edit"/></h:commandLink>
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputText value="Delete"/>
-                        </f:facet>
-                        <h:commandLink action="#{ownerController.delete(owner.id)}"><i class="icon-trash"/></h:commandLink>
                     </h:column>
                 </h:dataTable>
 
