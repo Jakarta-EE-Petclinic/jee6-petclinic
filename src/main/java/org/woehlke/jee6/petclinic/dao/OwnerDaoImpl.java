@@ -3,8 +3,6 @@ package org.woehlke.jee6.petclinic.dao;
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.query.dsl.QueryBuilder;
 import org.woehlke.jee6.petclinic.entities.Owner;
-import org.woehlke.jee6.petclinic.entities.Specialty;
-import org.woehlke.jee6.petclinic.entities.Vet;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -65,7 +63,7 @@ public class OwnerDaoImpl implements OwnerDao {
                 .buildQueryBuilder().forEntity( Owner.class ).get();
         org.apache.lucene.search.Query query = qb
                 .keyword()
-                .onFields("firstName", "lastName", "specialties.name")
+                .onFields("firstName", "lastName", "city", "pets.name")
                 .matching(searchterm)
                 .createQuery();
         // wrap Lucene query in a javax.persistence.Query

@@ -65,7 +65,7 @@ public class VetDaoImpl implements VetDao {
                 .buildQueryBuilder().forEntity( Vet.class ).get();
         org.apache.lucene.search.Query query = qb
                 .keyword()
-                .onFields("firstName", "lastName", "pets.name")
+                .onFields("firstName", "lastName", "specialties.name")
                 .matching(searchterm)
                 .createQuery();
         // wrap Lucene query in a javax.persistence.Query

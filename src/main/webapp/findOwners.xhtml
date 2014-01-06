@@ -12,7 +12,16 @@
     <ui:composition template="./template.xhtml">
 
         <ui:define name="content">
-            Find owners: TODO
+
+            <h:form>
+                <h:panelGrid id="grid" columns="2" style="vertical-align: middle">
+                    <h:inputText value="#{ownerController.searchterm}" />
+                    <h:commandButton action="#{ownerController.search}" value="Search" styleClass="btn"/>
+                </h:panelGrid>
+
+                <i class="icon-plus-sign" /><h:commandLink action="#{ownerController.getNewOwnerForm}">Add New Owner</h:commandLink>
+            </h:form>
+
         </ui:define>
 
     </ui:composition>

@@ -122,7 +122,15 @@ public class VetController implements Serializable {
     }
 
     public String search(){
-        this.vets = vetDao.search(searchterm);
+        if (searchterm==null||searchterm.isEmpty()) {
+            this.vets = vetDao.getAll();
+        } else {
+            try {
+                this.vets = vetDao.search(searchterm);
+            } catch (Exception e){
+                this.vets = vetDao.getAll();
+            }
+        }
         return "vets.xhtml";
     }
 }
