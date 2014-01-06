@@ -13,10 +13,7 @@
 
         <ui:define name="content">
             <h:form>
-                <h:panelGroup>
-                    <h:messages id="messages" layout="block" errorStyle="color: red"/>
-                </h:panelGroup>
-
+                <h2>Owner</h2>
                 <h:panelGrid id="grid" columns="2" styleClass="table table-striped">
                     <h:outputLabel value="Name: " for="firstName"/>
                     <h:panelGroup>
@@ -41,18 +38,21 @@
                     <h:commandButton id="addPet" value="add New Pet" style="float: right"
                                      action="#{ownerController.getAddNewPetForm()}" styleClass="btn"/>
                 </h:panelGrid>
-
-                <h:panelGrid id="grid2" columns="2" styleClass="table">
-                    <h:dataTable value="#{ownerController.owner.pets}" var="ownersPet">
-                        <h:column>
-                            <h:outputText value="#{ownersPet.name}"/><br/>
-                            <h:outputText value="#{ownersPet.type.name}"/><br/>
-                           <h:outputText value="#{ownersPet.birthDate}">
+                <h2>Pets and Visits</h2>
+                <h:dataTable value="#{ownerController.owner.pets}" var="ownersPet" styleClass="table">
+                    <h:column>
+                        <dl class="dl-horizontal">
+                            <dt><h:outputText value="Name: "/></dt>
+                            <dd><h:outputText value="#{ownersPet.name}"/></dd>
+                            <dt><h:outputText value="Birthdate: " /></dt>
+                            <dd><h:outputText value="#{ownersPet.birthDate}">
                                 <f:convertDateTime type="date" dateStyle="short"/>
-                            </h:outputText>
-                        </h:column>
-                    </h:dataTable>
-                </h:panelGrid>
+                            </h:outputText></dd>
+                            <dt><h:outputText value="Type: "/></dt>
+                            <dd><h:outputText value="#{ownersPet.type.name}"/></dd>
+                        </dl>
+                    </h:column>
+                </h:dataTable>
             </h:form>
         </ui:define>
 
