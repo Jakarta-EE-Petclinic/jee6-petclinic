@@ -4,6 +4,7 @@ import org.hibernate.search.annotations.Field;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -38,7 +39,7 @@ public class Pet {
     private Owner owner;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pet", fetch = FetchType.EAGER)
-    private Set<Visit> visits;
+    private Set<Visit> visits = new HashSet<Visit>();
 
     public Long getId() {
         return id;
@@ -86,5 +87,40 @@ public class Pet {
 
     public void setVisits(Set<Visit> visits) {
         this.visits = visits;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Pet)) return false;
+
+        Pet pet = (Pet) o;
+
+        if (birthDate != null ? !birthDate.equals(pet.birthDate) : pet.birthDate != null) return false;
+        if (id != null ? !id.equals(pet.id) : pet.id != null) return false;
+        if (name != null ? !name.equals(pet.name) : pet.name != null) return false;
+        if (type != null ? !type.equals(pet.type) : pet.type != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (birthDate != null ? birthDate.hashCode() : 0);
+        result = 31 * result + (type != null ? type.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Pet{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", birthDate=" + birthDate +
+                ", type=" + type +
+                ", visits=" + visits +
+                '}';
     }
 }

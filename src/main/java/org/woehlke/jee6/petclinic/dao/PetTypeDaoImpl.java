@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 @Stateless
 public class PetTypeDaoImpl implements PetTypeDao {
 
-    private static Logger log = Logger.getLogger(SpecialtyDaoImpl.class.getName());
+    private static Logger log = Logger.getLogger(PetTypeDaoImpl.class.getName());
 
     @PersistenceContext(unitName="jee6petclinic")
     private EntityManager entityManager;

@@ -12,8 +12,39 @@
     <ui:composition template="./template.xhtml">
 
         <ui:define name="content">
+            <h1>Add new Pet</h1>
+            <h:form>
 
-            TODO: add New Pet
+                <h:panelGroup>
+                    <h:messages id="messages" layout="block" errorStyle="color: red"/>
+                </h:panelGroup>
+
+                <h:panelGrid id="grid" columns="2" styleClass="table table-striped">
+                    <h:outputLabel value="Owner: " for="firstName"/>
+                    <h:panelGroup>
+                        <h:outputText id="firstName"
+                                      value="#{ownerController.owner.firstName}" />&nbsp;
+                        <h:outputText id="lastName"
+                                      value="#{ownerController.owner.lastName}"/>
+                    </h:panelGroup>
+                    <h:outputLabel value="Name: " for="petName"/>
+                    <h:inputText id="petName"
+                                  value="#{ownerController.pet.name}"/>
+                    <h:outputLabel value="Name: " for="petBirthDate"/>
+                    <h:panelGroup>
+                    <rich:calendar id="petBirthDate" locale="de/DE"
+                                 value="#{ownerController.pet.birthDate}"/>
+                    </h:panelGroup>
+                    <h:outputLabel value="Type: " for="petType"/>
+                    <h:selectOneListbox id="petType" value="#{ownerController.petTypeId}">
+                        <f:selectItems value="#{ownerController.allPetTypes}"
+                                       var="petType" itemLabel="#{petType.name}" itemValue="#{petType.id}" />
+                    </h:selectOneListbox>
+                    <h:commandButton id="add" value="Add" style="float: left"
+                                     action="#{ownerController.addNewPet}" styleClass="btn"/>
+
+                </h:panelGrid>
+            </h:form>
 
         </ui:define>
 

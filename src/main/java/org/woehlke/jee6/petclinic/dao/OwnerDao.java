@@ -1,6 +1,7 @@
 package org.woehlke.jee6.petclinic.dao;
 
 import org.woehlke.jee6.petclinic.entities.Owner;
+import org.woehlke.jee6.petclinic.entities.Pet;
 
 import java.util.List;
 
@@ -24,4 +25,5 @@ public interface OwnerDao {
     void update(Owner owner);
 
     List<Owner> search(String searchterm);
+
 }

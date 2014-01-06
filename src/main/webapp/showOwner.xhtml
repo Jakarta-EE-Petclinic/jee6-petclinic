@@ -18,28 +18,41 @@
                 </h:panelGroup>
 
                 <h:panelGrid id="grid" columns="2" styleClass="table table-striped">
-                    <h:outputLabel value="firstName:" for="firstName"/>
-                    <h:outputText id="firstName"
-                                  value="#{ownerController.owner.firstName}" />
-                    <h:outputLabel value="lastName:" for="lastName"/>
-                    <h:outputText id="lastName"
-                                 value="#{ownerController.owner.lastName}"/>
-                    <h:outputLabel value="address:" for="address"/>
+                    <h:outputLabel value="Name: " for="firstName"/>
+                    <h:panelGroup>
+                        <h:outputText id="firstName"
+                                      value="#{ownerController.owner.firstName}" />&nbsp;
+                        <h:outputText id="lastName"
+                                     value="#{ownerController.owner.lastName}"/>
+                    </h:panelGroup>
+                    <h:outputLabel value="address: " for="address"/>
                     <h:outputText id="address"
                                  value="#{ownerController.owner.address}"/>
-                    <h:outputLabel value="city:" for="city"/>
+                    <h:outputLabel value="city: " for="city"/>
                     <h:outputText id="city"
                                  value="#{ownerController.owner.city}"/>
-                    <h:outputLabel value="telephone:" for="telephone"/>
+                    <h:outputLabel value="telephone: " for="telephone"/>
                     <h:outputText id="telephone"
                                  value="#{ownerController.owner.telephone}"/>
+
+                    <h:commandButton id="edit" value="Edit Owner" style="float: left"
+                                     action="#{ownerController.getEditForm()}" styleClass="btn"/>
+
+                    <h:commandButton id="addPet" value="add New Pet" style="float: right"
+                                     action="#{ownerController.getAddNewPetForm()}" styleClass="btn"/>
                 </h:panelGrid>
 
-                <h:commandButton id="edit" value="Edit"
-                                 action="#{ownerController.getEditForm()}" styleClass="btn"/>
-
-                <h:commandButton id="addPet" value="add New Pet"
-                                 action="#{ownerController.getAddNewPetForm()}" styleClass="btn"/>
+                <h:panelGrid id="grid2" columns="2" styleClass="table">
+                    <h:dataTable value="#{ownerController.owner.pets}" var="ownersPet">
+                        <h:column>
+                            <h:outputText value="#{ownersPet.name}"/><br/>
+                            <h:outputText value="#{ownersPet.type.name}"/><br/>
+                           <h:outputText value="#{ownersPet.birthDate}">
+                                <f:convertDateTime type="date" dateStyle="short"/>
+                            </h:outputText>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGrid>
             </h:form>
         </ui:define>
 

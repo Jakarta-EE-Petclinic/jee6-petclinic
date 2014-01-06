@@ -1,7 +1,11 @@
 package org.woehlke.jee6.petclinic.web;
 
 import org.woehlke.jee6.petclinic.dao.OwnerDao;
+import org.woehlke.jee6.petclinic.dao.PetDao;
+import org.woehlke.jee6.petclinic.dao.PetTypeDao;
 import org.woehlke.jee6.petclinic.entities.Owner;
+import org.woehlke.jee6.petclinic.entities.Pet;
+import org.woehlke.jee6.petclinic.entities.PetType;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -23,11 +27,37 @@ public class OwnerController implements Serializable {
     @EJB
     private OwnerDao ownerDao;
 
+    @EJB
+    private PetDao petDao;
+
+    @EJB
+    private PetTypeDao petTypeDao;
+
     private String searchterm;
 
     private List<Owner> ownerList;
 
     private Owner owner;
+
+    private Pet pet;
+
+    private long petTypeId;
+
+    public long getPetTypeId() {
+        return petTypeId;
+    }
+
+    public void setPetTypeId(long petTypeId) {
+        this.petTypeId = petTypeId;
+    }
+
+    public Pet getPet() {
+        return pet;
+    }
+
+    public void setPet(Pet pet) {
+        this.pet = pet;
+    }
 
     public Owner getOwner() {
         return owner;
@@ -99,6 +129,20 @@ public class OwnerController implements Serializable {
     }
 
     public String getAddNewPetForm(){
+        this.pet = new Pet();
         return "addNewPet.xhtml";
+    }
+
+    public List<PetType> getAllPetTypes(){
+        return petTypeDao.getAll();
+    }
+
+    public String addNewPet(){
+        PetType petType = petTypeDao.findById(this.petTypeId);
+        this.pet.setType(petType);
+        this.owner.addPet(this.pet);
+        petDao.addNew(this.pet);
+        ownerDao.update(this.owner);
+        return "showOwner.xhtml";
     }
 }
