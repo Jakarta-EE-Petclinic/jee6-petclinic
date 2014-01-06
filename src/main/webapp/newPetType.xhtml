@@ -20,10 +20,10 @@
                 <h:panelGrid id="grid" columns="2">
                     <h:outputLabel value="Name:" for="name"/>
                     <h:inputText id="name"
-                                 value="#{specialtyController.specialty.name}"/>
+                                 value="#{petTypeController.petType.name}"/>
                 </h:panelGrid>
                 <h:commandButton id="save" value="Save"
-                                 action="#{specialtyController.saveEditedSpecialty}"/>
+                                 action="#{petTypeController.saveNewPetType}"/>
             </h:form>
         </ui:define>
 
