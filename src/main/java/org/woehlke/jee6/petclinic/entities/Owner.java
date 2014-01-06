@@ -1,5 +1,6 @@
 package org.woehlke.jee6.petclinic.entities;
 
+import org.hibernate.search.annotations.*;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
@@ -15,6 +16,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "owners")
+@Indexed
 public class Owner {
 
     @Id
@@ -23,18 +25,22 @@ public class Owner {
 
     @Column(name = "first_name")
     @NotEmpty
+    @Field(index= Index.YES, analyze= Analyze.YES, store= Store.NO)
     private String firstName;
 
     @Column(name = "last_name")
     @NotEmpty
+    @Field(index=Index.YES, analyze=Analyze.YES, store=Store.NO)
     private String lastName;
 
     @Column(name = "address")
     @NotEmpty
+    @Field(index=Index.YES, analyze=Analyze.YES, store=Store.NO)
     private String address;
 
     @Column(name = "city")
     @NotEmpty
+    @Field(index=Index.YES, analyze=Analyze.YES, store=Store.NO)
     private String city;
 
     @Column(name = "telephone")
@@ -42,6 +48,7 @@ public class Owner {
     @Digits(fraction = 0, integer = 10)
     private String telephone;
 
+    @IndexedEmbedded
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
     private Set<Pet> pets;
 

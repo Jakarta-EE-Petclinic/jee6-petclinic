@@ -2,12 +2,13 @@ package org.woehlke.jee6.petclinic.dao;
 
 import org.hibernate.search.jpa.FullTextEntityManager;
 import org.hibernate.search.query.dsl.QueryBuilder;
+import org.woehlke.jee6.petclinic.entities.Owner;
+import org.woehlke.jee6.petclinic.entities.Specialty;
 import org.woehlke.jee6.petclinic.entities.Vet;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.logging.Logger;
@@ -15,62 +16,61 @@ import java.util.logging.Logger;
 /**
  * Created with IntelliJ IDEA.
  * User: tw
- * Date: 02.01.14
- * Time: 08:30
+ * Date: 06.01.14
+ * Time: 09:38
  * To change this template use File | Settings | File Templates.
  */
 @Stateless
-public class VetDaoImpl implements VetDao {
+public class OwnerDaoImpl implements OwnerDao {
 
-    private static Logger log = Logger.getLogger(VetDaoImpl.class.getName());
+    private static Logger log = Logger.getLogger(OwnerDaoImpl.class.getName());
 
     @PersistenceContext(unitName="jee6petclinic")
     private EntityManager entityManager;
 
     @Override
-    public List<Vet> getAll(){
-        TypedQuery<Vet> q = entityManager.createQuery("select v from Vet v", Vet.class);
-        List<Vet> list =  q.getResultList();
+    public List<Owner> getAll() {
+        TypedQuery<Owner> q = entityManager.createQuery("select o from Owner o", Owner.class);
+        List<Owner> list =  q.getResultList();
         return list;
     }
 
     @Override
     public void delete(long id) {
-        Vet vet = entityManager.find(Vet.class, id);
-        entityManager.remove(vet);
+        Owner owner = entityManager.find(Owner.class, id);
+        entityManager.remove(owner);
     }
 
     @Override
-    public void addNew(Vet vet) {
-        log.info("addNewVet: "+vet.toString());
-        entityManager.persist(vet);
+    public void addNew(Owner owner) {
+        log.info("addNewOwner: "+owner.toString());
+        entityManager.persist(owner);
     }
 
     @Override
-    public Vet findById(long id) {
-        Vet vet = entityManager.find(Vet.class, id);
-        return vet;
+    public Owner findById(long id) {
+        return entityManager.find(Owner.class, id);
     }
 
     @Override
-    public void update(Vet vet) {
-        entityManager.merge(vet);
+    public void update(Owner owner) {
+        entityManager.merge(owner);
     }
 
     @Override
-    public List<Vet> search(String searchterm){
+    public List<Owner> search(String searchterm) {
         FullTextEntityManager fullTextEntityManager =
                 org.hibernate.search.jpa.Search.getFullTextEntityManager(entityManager);
         QueryBuilder qb = fullTextEntityManager.getSearchFactory()
-                .buildQueryBuilder().forEntity( Vet.class ).get();
+                .buildQueryBuilder().forEntity( Owner.class ).get();
         org.apache.lucene.search.Query query = qb
                 .keyword()
-                .onFields("firstName", "lastName", "pets.name")
+                .onFields("firstName", "lastName", "specialties.name")
                 .matching(searchterm)
                 .createQuery();
         // wrap Lucene query in a javax.persistence.Query
         javax.persistence.Query persistenceQuery =
-                fullTextEntityManager.createFullTextQuery(query, Vet.class);
+                fullTextEntityManager.createFullTextQuery(query, Owner.class);
         // execute search
         List result = persistenceQuery.getResultList();
         return  result;

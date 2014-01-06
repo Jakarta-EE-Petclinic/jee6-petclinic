@@ -1,5 +1,7 @@
 package org.woehlke.jee6.petclinic.entities;
 
+import org.hibernate.search.annotations.Field;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
@@ -19,6 +21,7 @@ public class Pet {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Field
     @Column(name = "name")
     private String name;
 
