@@ -14,14 +14,13 @@
         <jboss.version>7.1.1.Final</jboss.version>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.scm.version>1.8.1</maven.scm.version>
+        <maven.scm.version>1.8.1</maven.scm.version><!-- Web dependencies -->
+        <webjars-bootstrap.version>2.3.2</webjars-bootstrap.version>
     </properties>
 
     <prerequisites>
         <maven>3.0.4</maven>
     </prerequisites>
-
-
 
     <dependencyManagement>
         <dependencies>
@@ -114,6 +113,13 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-search</artifactId>
             <version>4.2.0.Final</version>
+        </dependency>
+
+        <!-- Webjars (static dependencies distributed as JAR files) -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>${webjars-bootstrap.version}</version>
         </dependency>
 
     </dependencies>
