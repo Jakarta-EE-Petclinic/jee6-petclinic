@@ -46,6 +46,24 @@
                     <h:commandButton action="#{ownerController.saveVisit}" value="Add Visit" />
                 </h:panelGrid>
 
+                <h4>Previous Visits</h4>
+                <h:dataTable value="#{ownerController.pet.visits}" var="petsVisit" styleClass="table table-striped">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Date"/>
+                        </f:facet>
+                        <h:outputText value="#{petsVisit.date}">
+                            <f:convertDateTime type="date" dateStyle="short"/>
+                        </h:outputText>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Description"/>
+                        </f:facet>
+                        <h:outputText value="#{petsVisit.description}"/>
+                    </h:column>
+                </h:dataTable>
+
             </h:form>
 
         </ui:define>
