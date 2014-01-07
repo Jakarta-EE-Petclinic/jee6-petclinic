@@ -3,9 +3,11 @@ package org.woehlke.jee6.petclinic.web;
 import org.woehlke.jee6.petclinic.dao.OwnerDao;
 import org.woehlke.jee6.petclinic.dao.PetDao;
 import org.woehlke.jee6.petclinic.dao.PetTypeDao;
+import org.woehlke.jee6.petclinic.dao.VisitDao;
 import org.woehlke.jee6.petclinic.entities.Owner;
 import org.woehlke.jee6.petclinic.entities.Pet;
 import org.woehlke.jee6.petclinic.entities.PetType;
+import org.woehlke.jee6.petclinic.entities.Visit;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -33,6 +35,9 @@ public class OwnerController implements Serializable {
     @EJB
     private PetTypeDao petTypeDao;
 
+    @EJB
+    private VisitDao visitDao;
+
     private String searchterm;
 
     private List<Owner> ownerList;
@@ -42,6 +47,16 @@ public class OwnerController implements Serializable {
     private Pet pet;
 
     private long petTypeId;
+
+    private Visit visit;
+
+    public Visit getVisit() {
+        return visit;
+    }
+
+    public void setVisit(Visit visit) {
+        this.visit = visit;
+    }
 
     public long getPetTypeId() {
         return petTypeId;
@@ -160,4 +175,22 @@ public class OwnerController implements Serializable {
         this.owner = this.ownerDao.findById(ownerId);
         return "showOwner.xhtml";
     }
+
+    public String addVisitToPetForm(long petId){
+        this.pet = petDao.findById(petId);
+        this.petTypeId = this.pet.getType().getId();
+        this.visit = new Visit();
+        return "addVisitToPet.xhtml";
+    }
+
+    public String saveVisit(){
+        visitDao.addNew(this.visit);
+        this.visit.setPet(this.pet);
+        this.pet.addVisit(this.visit);
+        petDao.update(this.pet);
+        long ownerId = this.owner.getId();
+        this.owner = this.ownerDao.findById(ownerId);
+        return "showOwner.xhtml";
+    }
+
 }

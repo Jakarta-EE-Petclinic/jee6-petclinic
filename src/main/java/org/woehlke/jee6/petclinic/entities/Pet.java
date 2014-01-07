@@ -42,6 +42,10 @@ public class Pet {
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Visit> visits = new ArrayList<Visit>();
 
+    public void addVisit(Visit visit) {
+        visits.add(visit);
+    }
+
     public Long getId() {
         return id;
     }
