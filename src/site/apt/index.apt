@@ -1,0 +1,34 @@
+JEE6 Petclinic
+
+    JSF with Java EE 6 Version of Spring Petclinic.
+
+    Github: {{{https://github.com/phasenraum2010/jee6-petclinic}https://github.com/jee6-petclinic/twitterwall}}
+
+* Motivation
+
+    Some experimental Work with JSF and Java EE 6. Comparison between JEE6 and Spring Frameworks.
+
+* Spring Petclinic
+
+    Github: {{{https://github.com/spring-projects/spring-petclinic}https://github.com/spring-projects/spring-petclinic}}
+
+* Runtime
+
+    Runs on JBoss AS 7
+
+* Runtime Dependencies
+
+    JBoss AS 7 - Java EE 6 Certified.
+
+* Domain Class Modell
+
+[images/DomainClassModell.jpg] Figure Domain Class Modell
+
+* Use Cases
+
+[images/UseCases.jpg] Figure Uses Cases Vet
+
+[images/UseCasesOwner.jpg] Figure Uses Cases Owner
+
+
+
