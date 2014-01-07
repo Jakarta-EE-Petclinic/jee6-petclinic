@@ -12,4 +12,8 @@ import org.woehlke.jee6.petclinic.entities.Pet;
 public interface PetDao {
 
     void addNew(Pet pet);
+
+    Pet findById(long petId);
+
+    void update(Pet pet);
 }

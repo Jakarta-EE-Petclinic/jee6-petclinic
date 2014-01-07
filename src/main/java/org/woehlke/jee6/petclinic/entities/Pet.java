@@ -1,11 +1,11 @@
 package org.woehlke.jee6.petclinic.entities;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.search.annotations.Field;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -39,7 +39,8 @@ public class Pet {
     private Owner owner;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pet", fetch = FetchType.EAGER)
-    private Set<Visit> visits = new HashSet<Visit>();
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<Visit> visits = new ArrayList<Visit>();
 
     public Long getId() {
         return id;
@@ -81,11 +82,11 @@ public class Pet {
         this.owner = owner;
     }
 
-    public Set<Visit> getVisits() {
+    public List<Visit> getVisits() {
         return visits;
     }
 
-    public void setVisits(Set<Visit> visits) {
+    public void setVisits(List<Visit> visits) {
         this.visits = visits;
     }
 
