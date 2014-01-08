@@ -33,7 +33,6 @@ public class Vet {
     @Field(index= Index.YES, analyze= Analyze.YES, store= Store.NO)
     private String lastName;
 
-    @IndexedEmbedded
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "vet_specialties",
             joinColumns = @JoinColumn(name = "vet_id"),

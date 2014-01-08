@@ -20,7 +20,6 @@ public class Specialty implements Comparable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Field
     @NotEmpty
     @Column(name = "name")
     private String name;
