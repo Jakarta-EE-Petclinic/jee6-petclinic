@@ -7,17 +7,17 @@
                 xmlns:rich="http://richfaces.org/rich">
 
         <ui:define name="content">
-            <h2>Owners</h2>
+            <h2>#{msg.owners}</h2>
             <h:form>
                 <h:panelGrid id="grid" columns="2" style="vertical-align: middle">
                     <h:inputText value="#{ownerController.searchterm}" />
-                    <h:commandButton action="#{ownerController.search}" value="Search" styleClass="btn"/>
+                    <h:commandButton action="#{ownerController.search}" value="#{msg.search}" styleClass="btn"/>
                 </h:panelGrid>
 
                 <h:dataTable value="#{ownerController.ownerList}" var="owner" styleClass="table table-striped table-hover">
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Name"/>
+                            <h:outputText value="#{msg.name}"/>
                         </f:facet>
                         <h:commandLink action="#{ownerController.showOwner(owner.id)}">
                             <h:outputText value="#{owner.firstName}"/>&#160;
@@ -26,25 +26,25 @@
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Address"/>
+                            <h:outputText value="#{msg.address}"/>
                         </f:facet>
                         <h:outputText value="#{owner.address}"/>
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="City"/>
+                            <h:outputText value="#{msg.city}"/>
                         </f:facet>
                         <h:outputText value="#{owner.city}"/>
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Telephone"/>
+                            <h:outputText value="#{msg.telephone}"/>
                         </f:facet>
                         <h:outputText value="#{owner.telephone}"/>
                     </h:column>
                 </h:dataTable>
 
-                <i class="icon-plus-sign" /><h:commandLink action="#{ownerController.getNewOwnerForm}">Add New Owner</h:commandLink>
+                <i class="icon-plus-sign" /><h:commandLink action="#{ownerController.getNewOwnerForm}">#{msg.addNewOwner}</h:commandLink>
             </h:form>
 
         </ui:define>

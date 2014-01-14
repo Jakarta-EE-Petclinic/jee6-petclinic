@@ -7,31 +7,31 @@
                 xmlns:rich="http://richfaces.org/rich">
 
         <ui:define name="content">
-            <h2>Add new Owner</h2>
+            <h2>#{msg.addNewOwner}</h2>
             <h:form>
             <h:panelGroup>
                 <h:messages id="messages" layout="block" errorStyle="color: red"/>
             </h:panelGroup>
 
             <h:panelGrid id="grid" columns="2">
-                <h:outputLabel value="firstName:" for="firstName"/>
+                <h:outputLabel value="#{msg.firstName}" for="firstName"/>
                 <h:inputText id="firstName"
                              value="#{ownerController.owner.firstName}"/>
-                <h:outputLabel value="lastName:" for="lastName"/>
+                <h:outputLabel value="#{msg.lastName}" for="lastName"/>
                 <h:inputText id="lastName"
                              value="#{ownerController.owner.lastName}"/>
-                <h:outputLabel value="address:" for="address"/>
+                <h:outputLabel value="#{msg.address}" for="address"/>
                 <h:inputText id="address"
                              value="#{ownerController.owner.address}"/>
-                <h:outputLabel value="city:" for="city"/>
+                <h:outputLabel value="#{msg.city}" for="city"/>
                 <h:inputText id="city"
                              value="#{ownerController.owner.city}"/>
-                <h:outputLabel value="telephone:" for="telephone"/>
+                <h:outputLabel value="#{msg.telephone}" for="telephone"/>
                 <h:inputText id="telephone"
                              value="#{ownerController.owner.telephone}"/>
             </h:panelGrid>
 
-            <h:commandButton id="save" value="Save"
+            <h:commandButton id="save" value="#{msg.save}"
                              action="#{ownerController.saveNewOwner}" styleClass="btn"/>
             </h:form>
         </ui:define>
