@@ -30,6 +30,10 @@ JEE6 Petclinic
 
 [images/UseCasesOwner.jpg] Figure Uses Cases Owner
 
+* Pageflow
+
+[images/Pageflow.jpg] Figure Pageflow
+
 * Screens
 
 ** Add Vet with ManyToMany Relation to Specialty
