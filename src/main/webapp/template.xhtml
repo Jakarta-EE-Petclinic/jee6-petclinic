@@ -7,7 +7,7 @@
       xmlns:a4j="http://richfaces.org/a4j"
       xmlns:rich="http://richfaces.org/rich">
 
-<f:view>
+<f:view locale="#{language.localeCode}">
 <f:loadBundle basename="messages" var="msg" />
 <h:head>
     <title>Petclinic</title>
@@ -38,8 +38,20 @@
     </div>
 
     <ui:insert name="content">Main Content</ui:insert>
-    <br/>
+
+    <br />
+    <br />
+    <div style="float: left">
     &copy; 2014 Thomas W&ouml;hlke
+    </div>
+    <div  style="float: right">
+        <h:form>
+            <i class="icon-exclamation-sign"></i>Language:
+            <h:selectOneMenu value="#{language.localeCode}" onchange="submit()" valueChangeListener="#{language.countryLocaleCodeChanged}">
+                <f:selectItems value="#{language.countriesInMap}" />
+            </h:selectOneMenu>
+        </h:form>
+    </div>
 </div>
 </h:body>
 </f:view>
