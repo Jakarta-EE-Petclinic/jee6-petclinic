@@ -7,29 +7,29 @@
                 xmlns:rich="http://richfaces.org/rich">
 
         <ui:define name="content">
-            <h2>Pet Types</h2>
+            <h2>#{msg.petTypes}</h2>
             <h:form>
                 <h:dataTable value="#{petTypeController.petTypes}" var="petType" styleClass="table table-striped table-hover">
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Name"/>
+                            <h:outputText value="#{msg.name}"/>
                         </f:facet>
                         <h:outputText value="#{petType.name}"/>
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Edit"/>
+                            <h:outputText value="#{msg.edit}"/>
                         </f:facet>
                         <h:commandLink action="#{petTypeController.getEditForm(petType.id)}"><i class="icon-edit"/></h:commandLink>
                     </h:column>
                     <h:column>
                         <f:facet name="header">
-                            <h:outputText value="Delete"/>
+                            <h:outputText value="#{msg.delete}"/>
                         </f:facet>
                         <h:commandLink action="#{petTypeController.delete(petType.id)}"><i class="icon-trash"/></h:commandLink>
                     </h:column>
                 </h:dataTable>
-                <i class="icon-plus-sign" /><h:commandLink action="#{petTypeController.getNewPetTypeForm}">Add New PetType</h:commandLink>
+                <i class="icon-plus-sign" /><h:commandLink action="#{petTypeController.getNewPetTypeForm}"><h:outputText value="#{msg.addNewPetType}"/></h:commandLink>
             </h:form>
         </ui:define>
 

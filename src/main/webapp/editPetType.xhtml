@@ -5,19 +5,19 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:a4j="http://richfaces.org/a4j"
                 xmlns:rich="http://richfaces.org/rich">
-        <h2>Edit Pet Type</h2>
-        <ui:define name="content">
 
+        <ui:define name="content">
+        <h2>#{msg.editPetType}</h2>
             <h:form>
                 <h:panelGroup>
                     <h:messages id="messages" layout="block" errorStyle="color: red"/>
                 </h:panelGroup>
                 <h:panelGrid id="grid" columns="2">
-                    <h:outputLabel value="Name:" for="name"/>
+                    <h:outputLabel value="#{msg.name}" for="name"/>
                     <h:inputText id="name"
                                  value="#{petTypeController.petType.name}"/>
                 </h:panelGrid>
-                <h:commandButton id="save" value="Save"
+                <h:commandButton id="save" value="#{msg.save}"
                                  action="#{petTypeController.saveEditedPetType}"/>
             </h:form>
         </ui:define>

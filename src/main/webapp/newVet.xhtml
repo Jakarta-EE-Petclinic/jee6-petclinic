@@ -7,31 +7,31 @@
                 xmlns:rich="http://richfaces.org/rich">
 
         <ui:define name="content">
-            <h2>Add new Veterinarian</h2>
+            <h2>#{msg.addNewVeterinarian}</h2>
             <h:form>
                 <h:panelGroup>
                     <h:messages id="messages" layout="block" errorStyle="color: red"/>
                 </h:panelGroup>
 
                 <h:panelGrid id="grid" columns="2">
-                    <h:outputLabel value="firstName:" for="firstName"/>
+                    <h:outputLabel value="#{msg.firstName}" for="firstName"/>
                     <h:inputText id="firstName"
                                  value="#{vetController.vet.firstName}"/>
-                    <h:outputLabel value="lastName:" for="lastName"/>
+                    <h:outputLabel value="#{msg.lastName}" for="lastName"/>
                     <h:inputText id="lastName"
                                  value="#{vetController.vet.lastName}"/>
                 </h:panelGrid>
 
                 <rich:pickList value="#{vetController.selectedSpecialties}"
-                               sourceCaption="Available specialties"
-                               targetCaption="Selected specialties"
+                               sourceCaption="#{msg.availableSpecialties}"
+                               targetCaption="#{msg.selectedSpecialties}"
                                listWidth="165px" listHeight="100px" orderable="true">
                     <f:selectItems value="#{vetController.specialties}" var="specialty"
                                    itemValue="#{specialty}" itemLabel="#{specialty.name}" />
                     <f:converter converterId="SpecialtyConverter" />
                 </rich:pickList>
 
-                <h:commandButton id="save" value="Save"
+                <h:commandButton id="save" value="#{msg.save}"
                                  action="#{vetController.saveNewVet}" styleClass="btn"/>
             </h:form>
         </ui:define>

@@ -7,17 +7,17 @@
                 xmlns:rich="http://richfaces.org/rich">
 
         <ui:define name="content">
-            <h2>Add new Pet Type</h2>
+            <h2>#{msg.addNewPetType}</h2>
             <h:form>
                 <h:panelGroup>
                     <h:messages id="messages" layout="block" errorStyle="color: red"/>
                 </h:panelGroup>
                 <h:panelGrid id="grid" columns="2">
-                    <h:outputLabel value="Name:" for="name"/>
+                    <h:outputLabel value="#{msg.name}" for="name"/>
                     <h:inputText id="name"
                                  value="#{petTypeController.petType.name}"/>
                 </h:panelGrid>
-                <h:commandButton id="save" value="Save"
+                <h:commandButton id="save" value="#{msg.save}"
                                  action="#{petTypeController.saveNewPetType}"/>
             </h:form>
         </ui:define>

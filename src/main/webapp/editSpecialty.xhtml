@@ -8,17 +8,17 @@
 
         <ui:define name="content">
 
-            <h2>Edit Specialty</h2>
+            <h2>#{msg.editSpecialty}</h2>
             <h:form>
                 <h:panelGroup>
                     <h:messages id="messages" layout="block" errorStyle="color: red"/>
                 </h:panelGroup>
                 <h:panelGrid id="grid" columns="2">
-                    <h:outputLabel value="Name:" for="name"/>
+                    <h:outputLabel value="#{msg.name}" for="name"/>
                     <h:inputText id="name"
                                  value="#{specialtyController.specialty.name}"/>
                 </h:panelGrid>
-                <h:commandButton id="save" value="Save"
+                <h:commandButton id="save" value="#{msg.save}"
                                  action="#{specialtyController.saveEditedSpecialty}"/>
             </h:form>
         </ui:define>
