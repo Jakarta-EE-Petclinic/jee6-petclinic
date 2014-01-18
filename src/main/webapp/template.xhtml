@@ -46,7 +46,7 @@
     </div>
     <div  style="float: right">
         <h:form>
-            <i class="icon-exclamation-sign"></i>Language:
+            <i class="icon-exclamation-sign"></i>#{msg.language}:
             <h:selectOneMenu value="#{language.localeCode}" onchange="submit()" valueChangeListener="#{language.countryLocaleCodeChanged}">
                 <f:selectItems value="#{language.countriesInMap}" />
             </h:selectOneMenu>
