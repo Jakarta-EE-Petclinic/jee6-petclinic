@@ -7,8 +7,6 @@ import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.Filters;
 import org.jboss.shrinkwrap.api.GenericArchive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.importer.ExplodedImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
@@ -20,6 +18,7 @@ import org.woehlke.jee6.petclinic.dao.SpecialtyDaoImpl;
 import org.woehlke.jee6.petclinic.entities.*;
 
 import java.net.URL;
+import java.util.logging.Logger;
 
 
 /**
@@ -32,20 +31,24 @@ import java.net.URL;
 @RunWith(Arquillian.class)
 public class FirstTest {
 
+    private static Logger log = Logger.getLogger(FirstTest.class.getName());
+
     private static final String WEBAPP_SRC = "src/main/webapp";
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class, "specialties.war")
-                .addClasses(SpecialtyController.class,
+                .addClasses(SpecialtyController.class, LanguageBean.class,
                         SpecialtyDao.class, SpecialtyDaoImpl.class,
                         Owner.class, Pet.class, PetType.class,
                         Specialty.class, Vet.class, Visit.class)
                 .merge(ShrinkWrap.create(GenericArchive.class).as(ExplodedImporter.class)
-                .importDirectory(WEBAPP_SRC).as(GenericArchive.class),
+                        .importDirectory(WEBAPP_SRC).as(GenericArchive.class),
                         "/", Filters.include(".*\\.xhtml$"))
                 .addAsResource("META-INF/persistence.xml")
-                .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
+                .addAsResource("messages_de.properties")
+                .addAsResource("messages_en.properties")
+                .setWebXML("WEB-INF/web.xml");
     }
 
     @Drone
@@ -55,12 +58,12 @@ public class FirstTest {
     URL deploymentUrl;
 
     @Test
-    public void testOpeningHomePage() {
-
-        driver.get("http://www.google.com");
-
+    public void testOpeningHomePage() throws InterruptedException {
+        String url = deploymentUrl.toExternalForm();
+        log.info("url: "+url);
+        driver.get(url);
         String pageTitle = driver.getTitle();
-
-        Assert.assertEquals(pageTitle, "Google");
+        log.info("pageTitle: " + pageTitle);
+        Assert.assertEquals(pageTitle, "Petclinic");
     }
 }

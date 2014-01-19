@@ -11,13 +11,25 @@
 	</appender>
 
 	<!-- Loggers -->
-	<logger name="org.openqa.selenium">
-		<level value="info" />
+	<logger name="org.openqa">
+		<level value="debug" />
 	</logger>
+
+    <logger name="org.hibernate">
+        <level value="info" />
+    </logger>
+
+    <logger name="org.jboss">
+        <level value="debug" />
+    </logger>
 
 	<logger name="org.woehlke">
 		<level value="info" />
 	</logger>
+
+    <logger name="javax.enterprise">
+        <level value="debug" />
+    </logger>
 
 	<!-- Root Logger -->
 	<root>
