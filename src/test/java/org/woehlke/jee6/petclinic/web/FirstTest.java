@@ -9,6 +9,8 @@ import org.jboss.shrinkwrap.api.GenericArchive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.importer.ExplodedImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.resolver.api.DependencyResolvers;
+import org.jboss.shrinkwrap.resolver.api.maven.MavenDependencyResolver;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,22 +35,9 @@ public class FirstTest {
 
     private static Logger log = Logger.getLogger(FirstTest.class.getName());
 
-    private static final String WEBAPP_SRC = "src/main/webapp";
-
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        return ShrinkWrap.create(WebArchive.class, "specialties.war")
-                .addClasses(SpecialtyController.class, LanguageBean.class,
-                        SpecialtyDao.class, SpecialtyDaoImpl.class,
-                        Owner.class, Pet.class, PetType.class,
-                        Specialty.class, Vet.class, Visit.class)
-                .merge(ShrinkWrap.create(GenericArchive.class).as(ExplodedImporter.class)
-                        .importDirectory(WEBAPP_SRC).as(GenericArchive.class),
-                        "/", Filters.include(".*\\.xhtml$"))
-                .addAsResource("META-INF/persistence.xml")
-                .addAsResource("messages_de.properties")
-                .addAsResource("messages_en.properties")
-                .setWebXML("WEB-INF/web.xml");
+        return Deployments.createSpecialtiesDeployment();
     }
 
     @Drone
