@@ -5,11 +5,12 @@ import org.jboss.shrinkwrap.api.GenericArchive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.importer.ExplodedImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.resolver.api.DependencyResolvers;
-import org.jboss.shrinkwrap.resolver.api.maven.MavenDependencyResolver;
+import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.woehlke.jee6.petclinic.dao.SpecialtyDao;
 import org.woehlke.jee6.petclinic.dao.SpecialtyDaoImpl;
 import org.woehlke.jee6.petclinic.entities.*;
+
+import java.io.File;
 
 /**
  * Created with IntelliJ IDEA.
@@ -23,7 +24,7 @@ public class Deployments {
     private static final String WEBAPP_SRC = "src/main/webapp";
 
     public static WebArchive createSpecialtiesDeployment() {
-        MavenDependencyResolver resolver = DependencyResolvers.use(MavenDependencyResolver.class).loadMetadataFromPom("pom.xml");
+        File[] deps = Maven.resolver().loadPomFromFile("pom.xml").importRuntimeDependencies().resolve().withTransitivity().asFile();
         return ShrinkWrap.create(WebArchive.class, "specialties.war")
                 .addClasses(SpecialtyController.class, LanguageBean.class,
                         SpecialtyDao.class, SpecialtyDaoImpl.class,
@@ -35,12 +36,7 @@ public class Deployments {
                 .addAsResource("META-INF/persistence.xml")
                 .addAsResource("messages_de.properties")
                 .addAsResource("messages_en.properties")
-                .addAsLibraries(resolver.artifacts(
-                        "org.hibernate:hibernate-search",
-                        "org.webjars:bootstrap",
-                        "org.richfaces.ui:richfaces-components-ui",
-                        "org.richfaces.core:richfaces-core-impl"
-                ).resolveAsFiles())
+                .addAsLibraries(deps)
                 .setWebXML("WEB-INF/web.xml");
     }
 }

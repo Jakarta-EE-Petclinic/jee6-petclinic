@@ -2,6 +2,7 @@ package org.woehlke.jee6.petclinic.web;
 
 import com.thoughtworks.selenium.DefaultSelenium;
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -9,7 +10,6 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.openqa.selenium.By;
 
 import java.net.URL;
 import java.util.logging.Logger;
@@ -33,46 +33,46 @@ public class FirstTest {
     }
 
     @Drone
-    DefaultSelenium selenium;
+    DefaultSelenium driver;
 
     @ArquillianResource
     URL deploymentUrl;
 
     @Test
+    @RunAsClient
     public void testOpeningHomePage() throws InterruptedException {
         String url = deploymentUrl.toExternalForm();
         log.info("url: "+url);
-        selenium.open(url);
-        String pageTitle = selenium.getTitle();
+        driver.open(url);
+        String pageTitle = driver.getTitle();
         log.info("pageTitle: " + pageTitle);
         Assert.assertEquals(pageTitle, "Petclinic");
     }
 
     @Test
+    @RunAsClient
     public void testOpeningSpecialtiesPage() throws InterruptedException {
         String url = deploymentUrl.toExternalForm() + "specialties.xhtml";
-        log.info("url: "+url);
-        selenium.open(url);
-        selenium.waitForPageToLoad("15000");
-        boolean isPresent = selenium.isElementPresent("id=specialties");
+        log.info("url: " + url);
+        driver.open(url);
+        boolean isPresent = driver.isElementPresent("id=specialties");// .findElement(By.id("specialties")).isDisplayed();
         log.info("isPresent: " + isPresent);
         Assert.assertTrue(isPresent);
     }
 
-    //@Test
+    @Test
+    @RunAsClient
     public void testOpeningNewSpecialtyPage() throws InterruptedException {
         String url = deploymentUrl.toExternalForm() + "specialties.xhtml";
         log.info("url: "+url);
-        selenium.open(url);
-        selenium.fireEvent("id=specialtiesForm:addNewSpecialty","click");
-        selenium.waitForPageToLoad("15000");
-        String page = selenium.getLocation();
+        driver.open(url);
+        driver.click("id=specialtiesForm:addNewSpecialty");
+        driver.waitForPageToLoad("15000");
+        String page = driver.getLocation();
         log.info("page: "+page);
-        //Assert.assertEquals(page, "h2");
-        /*
-        String tagName = selenium.findElement(By.id("addNewSpecialty")).getTagName();
-        log.info("tagName: " + tagName);
-        Assert.assertEquals(tagName, "h2");
-        */
+        boolean isPresent = driver.isElementPresent("id=addNewSpecialty");
+        log.info("isPresent: " + isPresent);
+        Assert.assertTrue(isPresent);
     }
+
 }
