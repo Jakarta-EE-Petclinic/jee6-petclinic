@@ -1,23 +1,15 @@
 package org.woehlke.jee6.petclinic.web;
 
+import com.thoughtworks.selenium.DefaultSelenium;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.shrinkwrap.api.Filters;
-import org.jboss.shrinkwrap.api.GenericArchive;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.importer.ExplodedImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.resolver.api.DependencyResolvers;
-import org.jboss.shrinkwrap.resolver.api.maven.MavenDependencyResolver;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.openqa.selenium.WebDriver;
-import org.woehlke.jee6.petclinic.dao.SpecialtyDao;
-import org.woehlke.jee6.petclinic.dao.SpecialtyDaoImpl;
-import org.woehlke.jee6.petclinic.entities.*;
+import org.openqa.selenium.By;
 
 import java.net.URL;
 import java.util.logging.Logger;
@@ -41,7 +33,7 @@ public class FirstTest {
     }
 
     @Drone
-    WebDriver driver;
+    DefaultSelenium selenium;
 
     @ArquillianResource
     URL deploymentUrl;
@@ -50,9 +42,37 @@ public class FirstTest {
     public void testOpeningHomePage() throws InterruptedException {
         String url = deploymentUrl.toExternalForm();
         log.info("url: "+url);
-        driver.get(url);
-        String pageTitle = driver.getTitle();
+        selenium.open(url);
+        String pageTitle = selenium.getTitle();
         log.info("pageTitle: " + pageTitle);
         Assert.assertEquals(pageTitle, "Petclinic");
+    }
+
+    @Test
+    public void testOpeningSpecialtiesPage() throws InterruptedException {
+        String url = deploymentUrl.toExternalForm() + "specialties.xhtml";
+        log.info("url: "+url);
+        selenium.open(url);
+        selenium.waitForPageToLoad("15000");
+        boolean isPresent = selenium.isElementPresent("id=specialties");
+        log.info("isPresent: " + isPresent);
+        Assert.assertTrue(isPresent);
+    }
+
+    //@Test
+    public void testOpeningNewSpecialtyPage() throws InterruptedException {
+        String url = deploymentUrl.toExternalForm() + "specialties.xhtml";
+        log.info("url: "+url);
+        selenium.open(url);
+        selenium.fireEvent("id=specialtiesForm:addNewSpecialty","click");
+        selenium.waitForPageToLoad("15000");
+        String page = selenium.getLocation();
+        log.info("page: "+page);
+        //Assert.assertEquals(page, "h2");
+        /*
+        String tagName = selenium.findElement(By.id("addNewSpecialty")).getTagName();
+        log.info("tagName: " + tagName);
+        Assert.assertEquals(tagName, "h2");
+        */
     }
 }

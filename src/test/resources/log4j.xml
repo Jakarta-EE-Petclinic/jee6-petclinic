@@ -12,7 +12,7 @@
 
 	<!-- Loggers -->
 	<logger name="org.openqa">
-		<level value="debug" />
+		<level value="info" />
 	</logger>
 
     <logger name="org.hibernate">
@@ -20,7 +20,7 @@
     </logger>
 
     <logger name="org.jboss">
-        <level value="debug" />
+        <level value="info" />
     </logger>
 
 	<logger name="org.woehlke">
@@ -28,7 +28,7 @@
 	</logger>
 
     <logger name="javax.enterprise">
-        <level value="debug" />
+        <level value="info" />
     </logger>
 
 	<!-- Root Logger -->
