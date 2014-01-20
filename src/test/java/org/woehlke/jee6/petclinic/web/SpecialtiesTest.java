@@ -40,7 +40,7 @@ public class SpecialtiesTest {
 
     @Test
     @RunAsClient
-    public void testOpeningHomePage() throws InterruptedException {
+    public void testOpeningHomePage() {
         String url = deploymentUrl.toExternalForm();
         log.info("url: "+url);
         driver.open(url);
@@ -51,7 +51,7 @@ public class SpecialtiesTest {
 
     @Test
     @RunAsClient
-    public void testOpeningSpecialtiesPage() throws InterruptedException {
+    public void testOpeningSpecialtiesPage() {
         String url = deploymentUrl.toExternalForm() + "specialties.xhtml";
         log.info("url: " + url);
         driver.open(url);
@@ -62,7 +62,7 @@ public class SpecialtiesTest {
 
     @Test
     @RunAsClient
-    public void testOpeningNewSpecialtyPage() throws InterruptedException {
+    public void testNewSpecialtyPage() {
         String url = deploymentUrl.toExternalForm() + "specialties.xhtml";
         log.info("url: "+url);
         driver.open(url);
@@ -71,6 +71,15 @@ public class SpecialtiesTest {
         String page = driver.getLocation();
         log.info("page: "+page);
         boolean isPresent = driver.isElementPresent("id=addNewSpecialty");
+        log.info("isPresent: " + isPresent);
+        Assert.assertTrue(isPresent);
+        driver.type("id=addNewSpecialtyForm:name","dentist");
+        driver.click("id=addNewSpecialtyForm:save");
+        driver.waitForPageToLoad("15000");
+        isPresent = driver.isElementPresent("id=specialties");
+        log.info("isPresent: " + isPresent);
+        Assert.assertTrue(isPresent);
+        isPresent = driver.isElementPresent("xpath=//td[contains(text(), 'dentist')]");
         log.info("isPresent: " + isPresent);
         Assert.assertTrue(isPresent);
     }
