@@ -23,9 +23,9 @@ import java.util.logging.Logger;
  * To change this template use File | Settings | File Templates.
  */
 @RunWith(Arquillian.class)
-public class FirstTest {
+public class SpecialtiesTest {
 
-    private static Logger log = Logger.getLogger(FirstTest.class.getName());
+    private static Logger log = Logger.getLogger(SpecialtiesTest.class.getName());
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
@@ -55,7 +55,7 @@ public class FirstTest {
         String url = deploymentUrl.toExternalForm() + "specialties.xhtml";
         log.info("url: " + url);
         driver.open(url);
-        boolean isPresent = driver.isElementPresent("id=specialties");// .findElement(By.id("specialties")).isDisplayed();
+        boolean isPresent = driver.isElementPresent("id=specialties");
         log.info("isPresent: " + isPresent);
         Assert.assertTrue(isPresent);
     }
