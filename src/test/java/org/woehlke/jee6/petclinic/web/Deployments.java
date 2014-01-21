@@ -6,10 +6,7 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.importer.ExplodedImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
-import org.woehlke.jee6.petclinic.dao.PetTypeDao;
-import org.woehlke.jee6.petclinic.dao.PetTypeDaoImpl;
-import org.woehlke.jee6.petclinic.dao.SpecialtyDao;
-import org.woehlke.jee6.petclinic.dao.SpecialtyDaoImpl;
+import org.woehlke.jee6.petclinic.dao.*;
 import org.woehlke.jee6.petclinic.entities.*;
 
 import java.io.File;
@@ -58,4 +55,25 @@ public class Deployments {
                 .addAsLibraries(deps)
                 .setWebXML("WEB-INF/web.xml");
     }
+
+    public static WebArchive createVetDeployment() {
+        File[] deps = Maven.resolver().loadPomFromFile("pom.xml").importRuntimeDependencies().resolve().withTransitivity().asFile();
+        return ShrinkWrap.create(WebArchive.class, "vet.war")
+                .addClasses(
+                        SpecialtyController.class, VetController.class, LanguageBean.class,
+                        SpecialtyConverter.class,SpecialtyParser.class,
+                        SpecialtyDao.class, SpecialtyDaoImpl.class,
+                        VetDao.class, VetDaoImpl.class,
+                        Owner.class, Pet.class, PetType.class,
+                        Specialty.class, Vet.class, Visit.class)
+                .merge(ShrinkWrap.create(GenericArchive.class).as(ExplodedImporter.class)
+                        .importDirectory(WEBAPP_SRC).as(GenericArchive.class),
+                        "/", Filters.include(".*\\.xhtml$"))
+                .addAsResource("META-INF/persistence.xml")
+                .addAsResource("messages_de.properties")
+                .addAsResource("messages_en.properties")
+                .addAsLibraries(deps)
+                .setWebXML("WEB-INF/web.xml");
+    }
+
 }
