@@ -84,4 +84,46 @@ public class SpecialtiesTest {
         Assert.assertTrue(isPresent);
     }
 
+    @Test
+    @RunAsClient
+    public void testEditSpecialtyPage() {
+        String url = deploymentUrl.toExternalForm() + "specialties.xhtml";
+        log.info("url: "+url);
+        driver.open(url);
+        driver.click("id=specialtiesForm:specialtiesTable:0:edit");
+        driver.waitForPageToLoad("15000");
+        String page = driver.getLocation();
+        log.info("page: "+page);
+        boolean isPresent = driver.isElementPresent("id=editSpecialty");
+        log.info("isPresent: " + isPresent);
+        Assert.assertTrue(isPresent);
+        driver.type("id=editSpecialtyForm:name","specialist");
+        driver.click("id=editSpecialtyForm:save");
+        driver.waitForPageToLoad("15000");
+        isPresent = driver.isElementPresent("id=specialties");
+        log.info("isPresent: " + isPresent);
+        Assert.assertTrue(isPresent);
+        isPresent = driver.isElementPresent("xpath=//td[contains(text(), 'specialist')]");
+        log.info("isPresent: " + isPresent);
+        Assert.assertTrue(isPresent);
+    }
+
+    @Test
+    @RunAsClient
+    public void testDeleteSpecialtyPage() {
+        String url = deploymentUrl.toExternalForm() + "specialties.xhtml";
+        log.info("url: "+url);
+        driver.open(url);
+        driver.click("id=specialtiesForm:specialtiesTable:0:delete");
+        driver.waitForPageToLoad("15000");
+        String page = driver.getLocation();
+        log.info("page: "+page);
+        boolean isPresent = driver.isElementPresent("id=specialties");
+        log.info("isPresent: " + isPresent);
+        Assert.assertTrue(isPresent);
+        isPresent = driver.isElementPresent("xpath=//td[contains(text(), 'specialist')]");
+        log.info("isPresent: " + isPresent);
+        Assert.assertFalse(isPresent);
+    }
+
 }
