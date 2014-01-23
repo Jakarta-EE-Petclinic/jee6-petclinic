@@ -76,4 +76,22 @@ public class Deployments {
                 .setWebXML("WEB-INF/web.xml");
     }
 
+    public static WebArchive createOwnerDeployment() {
+        File[] deps = Maven.resolver().loadPomFromFile("pom.xml").importRuntimeDependencies().resolve().withTransitivity().asFile();
+        return ShrinkWrap.create(WebArchive.class, "owner.war")
+                .addClasses(OwnerController.class, PetTypeController.class, LanguageBean.class,
+                        OwnerDao.class, OwnerDaoImpl.class, PetDao.class, PetDaoImpl.class,
+                        VisitDao.class, VisitDaoImpl.class,
+                        PetTypeDao.class, PetTypeDaoImpl.class,
+                        Owner.class, Pet.class, PetType.class,
+                        Specialty.class, Vet.class, Visit.class)
+                .merge(ShrinkWrap.create(GenericArchive.class).as(ExplodedImporter.class)
+                        .importDirectory(WEBAPP_SRC).as(GenericArchive.class),
+                        "/", Filters.include(".*\\.xhtml$"))
+                .addAsResource("META-INF/persistence.xml")
+                .addAsResource("messages_de.properties")
+                .addAsResource("messages_en.properties")
+                .addAsLibraries(deps)
+                .setWebXML("WEB-INF/web.xml");
+    }
 }

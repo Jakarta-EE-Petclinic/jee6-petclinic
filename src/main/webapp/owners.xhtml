@@ -7,19 +7,19 @@
                 xmlns:rich="http://richfaces.org/rich">
 
         <ui:define name="content">
-            <h2>#{msg.owners}</h2>
-            <h:form>
+            <h2 id="owners">#{msg.owners}</h2>
+            <h:form id="ownersForm">
                 <h:panelGrid id="grid" columns="2" style="vertical-align: middle">
                     <h:inputText value="#{ownerController.searchterm}" />
                     <h:commandButton action="#{ownerController.search}" value="#{msg.search}" styleClass="btn"/>
                 </h:panelGrid>
 
-                <h:dataTable value="#{ownerController.ownerList}" var="owner" styleClass="table table-striped table-hover">
+                <h:dataTable id="ownersTable" value="#{ownerController.ownerList}" var="owner" styleClass="table table-striped table-hover">
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="#{msg.name}"/>
                         </f:facet>
-                        <h:commandLink action="#{ownerController.showOwner(owner.id)}">
+                        <h:commandLink id="showOwner" action="#{ownerController.showOwner(owner.id)}">
                             <h:outputText value="#{owner.firstName}"/>&#160;
                             <h:outputText value="#{owner.lastName}"/>
                         </h:commandLink>
@@ -44,7 +44,7 @@
                     </h:column>
                 </h:dataTable>
 
-                <i class="icon-plus-sign" /><h:commandLink action="#{ownerController.getNewOwnerForm}">#{msg.addNewOwner}</h:commandLink>
+                <i class="icon-plus-sign" /><h:commandLink id="getNewOwnerForm" action="#{ownerController.getNewOwnerForm}">#{msg.addNewOwner}</h:commandLink>
             </h:form>
 
         </ui:define>

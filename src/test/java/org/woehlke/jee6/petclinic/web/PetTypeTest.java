@@ -24,7 +24,7 @@ import java.util.logging.Logger;
 @RunWith(Arquillian.class)
 public class PetTypeTest {
 
-    private static Logger log = Logger.getLogger(SpecialtiesTest.class.getName());
+    private static Logger log = Logger.getLogger(PetTypeTest.class.getName());
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
@@ -43,6 +43,7 @@ public class PetTypeTest {
         String url = deploymentUrl.toExternalForm();
         log.info("url: "+url);
         driver.open(url);
+        driver.waitForPageToLoad("15000");
         String pageTitle = driver.getTitle();
         log.info("pageTitle: " + pageTitle);
         Assert.assertEquals(pageTitle, "Petclinic");
@@ -54,6 +55,7 @@ public class PetTypeTest {
         String url = deploymentUrl.toExternalForm() + "petTypes.xhtml";
         log.info("url: " + url);
         driver.open(url);
+        driver.waitForPageToLoad("15000");
         boolean isPresent = driver.isElementPresent("id=petTypes");
         log.info("isPresent: " + isPresent);
         Assert.assertTrue(isPresent);
@@ -65,6 +67,7 @@ public class PetTypeTest {
         String url = deploymentUrl.toExternalForm() + "petTypes.xhtml";
         log.info("url: "+url);
         driver.open(url);
+        driver.waitForPageToLoad("15000");
         driver.click("id=petTypesForm:getNewPetTypeForm");
         driver.waitForPageToLoad("15000");
         String page = driver.getLocation();
@@ -89,6 +92,7 @@ public class PetTypeTest {
         String url = deploymentUrl.toExternalForm() + "petTypes.xhtml";
         log.info("url: "+url);
         driver.open(url);
+        driver.waitForPageToLoad("15000");
         driver.click("id=petTypesForm:petTypesTable:0:edit");
         driver.waitForPageToLoad("15000");
         String page = driver.getLocation();
@@ -114,6 +118,7 @@ public class PetTypeTest {
         String url = deploymentUrl.toExternalForm() + "petTypes.xhtml";
         log.info("url: "+url);
         driver.open(url);
+        driver.waitForPageToLoad("15000");
         driver.click("id=petTypesForm:petTypesTable:0:delete");
         driver.waitForPageToLoad("15000");
         String page = driver.getLocation();
