@@ -81,4 +81,45 @@ public class OwnerTest {
         log.info("isPresent: " + isPresent);
         Assert.assertTrue(isPresent);
     }
+
+    @Test
+    @InSequence(4)
+    @RunAsClient
+    public void testOpenNewOwnerPage() {
+        String url = deploymentUrl.toExternalForm() + "findOwners.xhtml";
+        log.info("url: " + url);
+        driver.open(url);
+        driver.waitForPageToLoad("15000");
+        boolean isPresent = driver.isElementPresent("id=findOwners");
+        log.info("isPresent: " + isPresent);
+        Assert.assertTrue(isPresent);
+        driver.click("id=findOwnersForm:getNewOwnerForm");
+        driver.waitForPageToLoad("15000");
+        isPresent = driver.isElementPresent("id=addNewOwner");
+        log.info("isPresent: " + isPresent);
+        Assert.assertTrue(isPresent);
+    }
+
+    @Test
+    @InSequence(5)
+    @RunAsClient
+    public void testOpenNewOwnerPageFromOwnersList() {
+        String url = deploymentUrl.toExternalForm() + "findOwners.xhtml";
+        log.info("url: " + url);
+        driver.open(url);
+        driver.waitForPageToLoad("15000");
+        boolean isPresent = driver.isElementPresent("id=findOwners");
+        log.info("isPresent: " + isPresent);
+        Assert.assertTrue(isPresent);
+        driver.click("id=findOwnersForm:search");
+        driver.waitForPageToLoad("15000");
+        isPresent = driver.isElementPresent("id=owners");
+        log.info("isPresent: " + isPresent);
+        Assert.assertTrue(isPresent);
+        driver.click("id=ownersForm:getNewOwnerForm");
+        driver.waitForPageToLoad("15000");
+        isPresent = driver.isElementPresent("id=addNewOwner");
+        log.info("isPresent: " + isPresent);
+        Assert.assertTrue(isPresent);
+    }
 }
