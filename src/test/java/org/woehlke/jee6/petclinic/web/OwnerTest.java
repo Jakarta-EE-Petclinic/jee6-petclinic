@@ -5,6 +5,7 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
@@ -38,23 +39,45 @@ public class OwnerTest {
     URL deploymentUrl;
 
     @Test
+    @InSequence(1)
     @RunAsClient
     public void testOpeningHomePage() {
         String url = deploymentUrl.toExternalForm();
         log.info("url: "+url);
         driver.open(url);
+        driver.waitForPageToLoad("15000");
         String pageTitle = driver.getTitle();
         log.info("pageTitle: " + pageTitle);
         Assert.assertEquals(pageTitle, "Petclinic");
     }
 
     @Test
+    @InSequence(2)
     @RunAsClient
-    public void testOpeningPetTypesPage() {
+    public void testOpenFindOwnersPage() {
         String url = deploymentUrl.toExternalForm() + "findOwners.xhtml";
         log.info("url: " + url);
         driver.open(url);
+        driver.waitForPageToLoad("15000");
         boolean isPresent = driver.isElementPresent("id=findOwners");
+        log.info("isPresent: " + isPresent);
+        Assert.assertTrue(isPresent);
+    }
+
+    @Test
+    @InSequence(3)
+    @RunAsClient
+    public void testOpenOwnersPage() {
+        String url = deploymentUrl.toExternalForm() + "findOwners.xhtml";
+        log.info("url: " + url);
+        driver.open(url);
+        driver.waitForPageToLoad("15000");
+        boolean isPresent = driver.isElementPresent("id=findOwners");
+        log.info("isPresent: " + isPresent);
+        Assert.assertTrue(isPresent);
+        driver.click("id=findOwnersForm:search");
+        driver.waitForPageToLoad("15000");
+        isPresent = driver.isElementPresent("id=owners");
         log.info("isPresent: " + isPresent);
         Assert.assertTrue(isPresent);
     }

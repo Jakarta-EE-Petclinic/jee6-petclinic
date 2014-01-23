@@ -5,6 +5,7 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
@@ -38,6 +39,7 @@ public class VetTest {
     URL deploymentUrl;
 
     @Test
+    @InSequence(1)
     @RunAsClient
     public void testOpeningHomePage() {
         String url = deploymentUrl.toExternalForm();
@@ -49,6 +51,7 @@ public class VetTest {
     }
 
     @Test
+    @InSequence(2)
     @RunAsClient
     public void testOpeningVetPage() {
         String url = deploymentUrl.toExternalForm() + "vets.xhtml";
@@ -60,6 +63,7 @@ public class VetTest {
     }
 
     @Test
+    @InSequence(3)
     @RunAsClient
     public void testNewVetPage() {
         String url = deploymentUrl.toExternalForm() + "vets.xhtml";
@@ -85,6 +89,7 @@ public class VetTest {
     }
 
     @Test
+    @InSequence(4)
     @RunAsClient
     public void testEditVetPage() {
         String url = deploymentUrl.toExternalForm() + "vets.xhtml";
@@ -116,6 +121,7 @@ public class VetTest {
     }
 
     @Test
+    @InSequence(5)
     @RunAsClient
     public void testDeleteVetPage() {
         String url = deploymentUrl.toExternalForm() + "vets.xhtml";
