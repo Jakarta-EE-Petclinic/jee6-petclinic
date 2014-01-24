@@ -139,4 +139,38 @@ public class OwnerTest {
         Assert.assertTrue(driver.isElementPresent("xpath=//td[contains(text(), 'Berlin')]"));
         Assert.assertTrue(driver.isElementPresent("xpath=//td[contains(text(), '03012345678')]"));
     }
+
+    @Test
+    @InSequence(7)
+    @RunAsClient
+    public void testEditOwner() {
+        String url = deploymentUrl.toExternalForm() + "findOwners.xhtml";
+        log.info("url: " + url);
+        driver.open(url);
+        driver.waitForPageToLoad("15000");
+        Assert.assertTrue(driver.isElementPresent("id=findOwners"));
+        driver.click("id=findOwnersForm:search");
+        driver.waitForPageToLoad("15000");
+        Assert.assertTrue(driver.isElementPresent("id=owners"));
+        driver.click("id=ownersForm:ownersTable:0:showOwner");
+        driver.waitForPageToLoad("15000");
+        Assert.assertTrue(driver.isElementPresent("id=showOwnerForm"));
+        driver.click("id=showOwnerForm:edit");
+        driver.waitForPageToLoad("15000");
+        Assert.assertTrue(driver.isElementPresent("id=editOwnerForm"));
+        driver.type("editOwnerForm:firstName","Willy");
+        driver.type("editOwnerForm:lastName","Wombel");
+        driver.type("editOwnerForm:address","Elbchaussee 242");
+        driver.type("editOwnerForm:city","Hamburg");
+        driver.type("editOwnerForm:telephone","04012345678");
+        driver.click("id=editOwnerForm:save");
+        driver.waitForPageToLoad("15000");
+        Assert.assertTrue(driver.isElementPresent("id=showOwnerForm"));
+        Assert.assertTrue(driver.isElementPresent("xpath=//span[contains(text(), 'Willy')]"));
+        Assert.assertTrue(driver.isElementPresent("xpath=//span[contains(text(), 'Wombel')]"));
+        Assert.assertTrue(driver.isElementPresent("xpath=//span[contains(text(), 'Elbchaussee 242')]"));
+        Assert.assertTrue(driver.isElementPresent("xpath=//span[contains(text(), 'Hamburg')]"));
+        Assert.assertTrue(driver.isElementPresent("xpath=//span[contains(text(), '04012345678')]"));
+
+    }
 }

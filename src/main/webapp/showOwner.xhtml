@@ -7,8 +7,8 @@
                 xmlns:rich="http://richfaces.org/rich">
 
         <ui:define name="content">
-            <h:form>
-                <h2>#{msg.owner}</h2>
+            <h:form id="showOwnerForm">
+                <h2 id="showOwner">#{msg.owner}</h2>
                 <h:panelGrid id="grid" columns="2" styleClass="table table-striped">
                     <h:outputLabel value="#{msg.name}" for="firstName"/>
                     <h:panelGroup>
