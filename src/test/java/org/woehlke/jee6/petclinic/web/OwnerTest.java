@@ -59,9 +59,7 @@ public class OwnerTest {
         log.info("url: " + url);
         driver.open(url);
         driver.waitForPageToLoad("15000");
-        boolean isPresent = driver.isElementPresent("id=findOwners");
-        log.info("isPresent: " + isPresent);
-        Assert.assertTrue(isPresent);
+        Assert.assertTrue(driver.isElementPresent("id=findOwners"));
     }
 
     @Test
@@ -72,14 +70,10 @@ public class OwnerTest {
         log.info("url: " + url);
         driver.open(url);
         driver.waitForPageToLoad("15000");
-        boolean isPresent = driver.isElementPresent("id=findOwners");
-        log.info("isPresent: " + isPresent);
-        Assert.assertTrue(isPresent);
+        Assert.assertTrue(driver.isElementPresent("id=findOwners"));
         driver.click("id=findOwnersForm:search");
         driver.waitForPageToLoad("15000");
-        isPresent = driver.isElementPresent("id=owners");
-        log.info("isPresent: " + isPresent);
-        Assert.assertTrue(isPresent);
+        Assert.assertTrue(driver.isElementPresent("id=owners"));
     }
 
     @Test
@@ -90,14 +84,10 @@ public class OwnerTest {
         log.info("url: " + url);
         driver.open(url);
         driver.waitForPageToLoad("15000");
-        boolean isPresent = driver.isElementPresent("id=findOwners");
-        log.info("isPresent: " + isPresent);
-        Assert.assertTrue(isPresent);
+        Assert.assertTrue(driver.isElementPresent("id=findOwners"));
         driver.click("id=findOwnersForm:getNewOwnerForm");
         driver.waitForPageToLoad("15000");
-        isPresent = driver.isElementPresent("id=addNewOwner");
-        log.info("isPresent: " + isPresent);
-        Assert.assertTrue(isPresent);
+        Assert.assertTrue(driver.isElementPresent("id=addNewOwner"));
     }
 
     @Test
@@ -108,18 +98,45 @@ public class OwnerTest {
         log.info("url: " + url);
         driver.open(url);
         driver.waitForPageToLoad("15000");
-        boolean isPresent = driver.isElementPresent("id=findOwners");
-        log.info("isPresent: " + isPresent);
-        Assert.assertTrue(isPresent);
+        Assert.assertTrue(driver.isElementPresent("id=findOwners"));
         driver.click("id=findOwnersForm:search");
         driver.waitForPageToLoad("15000");
-        isPresent = driver.isElementPresent("id=owners");
-        log.info("isPresent: " + isPresent);
-        Assert.assertTrue(isPresent);
+        Assert.assertTrue(driver.isElementPresent("id=owners"));
         driver.click("id=ownersForm:getNewOwnerForm");
         driver.waitForPageToLoad("15000");
-        isPresent = driver.isElementPresent("id=addNewOwner");
-        log.info("isPresent: " + isPresent);
-        Assert.assertTrue(isPresent);
+        Assert.assertTrue(driver.isElementPresent("id=addNewOwner"));
+    }
+
+
+
+    @Test
+    @InSequence(6)
+    @RunAsClient
+    public void testAddNewOwner() {
+        String url = deploymentUrl.toExternalForm() + "findOwners.xhtml";
+        log.info("url: " + url);
+        driver.open(url);
+        driver.waitForPageToLoad("15000");
+        Assert.assertTrue(driver.isElementPresent("id=findOwners"));
+        driver.click("id=findOwnersForm:search");
+        driver.waitForPageToLoad("15000");
+        Assert.assertTrue(driver.isElementPresent("id=owners"));
+        driver.click("id=ownersForm:getNewOwnerForm");
+        driver.waitForPageToLoad("15000");
+        Assert.assertTrue(driver.isElementPresent("id=addNewOwner"));
+        driver.type("addNewOwnerForm:firstName","Thomas");
+        driver.type("addNewOwnerForm:lastName","Woehlke");
+        driver.type("addNewOwnerForm:address","Schoenhauser Allee 42");
+        driver.type("addNewOwnerForm:city","Berlin");
+        driver.type("addNewOwnerForm:telephone","03012345678");
+        driver.click("id=addNewOwnerForm:save");
+        driver.waitForPageToLoad("15000");
+        Assert.assertTrue(driver.isElementPresent("id=owners"));
+        Assert.assertTrue(driver.isElementPresent("id=ownersForm:ownersTable:0:showOwner"));
+        Assert.assertTrue(driver.isElementPresent("xpath=//td/a[contains(text(), 'Thomas')]"));
+        Assert.assertTrue(driver.isElementPresent("xpath=//td/a[contains(text(), 'Woehlke')]"));
+        Assert.assertTrue(driver.isElementPresent("xpath=//td[contains(text(), 'Schoenhauser Allee 42')]"));
+        Assert.assertTrue(driver.isElementPresent("xpath=//td[contains(text(), 'Berlin')]"));
+        Assert.assertTrue(driver.isElementPresent("xpath=//td[contains(text(), '03012345678')]"));
     }
 }
