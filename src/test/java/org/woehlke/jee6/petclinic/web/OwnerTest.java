@@ -42,10 +42,11 @@ public class OwnerTest {
     @InSequence(1)
     @RunAsClient
     public void testOpeningHomePage() {
-        String url = deploymentUrl.toExternalForm();
+        String url = deploymentUrl.toExternalForm()+ "hello.jsf";
         log.info("url: "+url);
         driver.open(url);
         driver.waitForPageToLoad("15000");
+        log.info(driver.getLocation());
         String pageTitle = driver.getTitle();
         log.info("pageTitle: " + pageTitle);
         Assert.assertEquals(pageTitle, "Petclinic");
@@ -55,7 +56,7 @@ public class OwnerTest {
     @InSequence(2)
     @RunAsClient
     public void testOpenFindOwnersPage() {
-        String url = deploymentUrl.toExternalForm() + "findOwners.xhtml";
+        String url = deploymentUrl.toExternalForm() + "findOwners.jsf";
         log.info("url: " + url);
         driver.open(url);
         driver.waitForPageToLoad("15000");
@@ -66,7 +67,7 @@ public class OwnerTest {
     @InSequence(3)
     @RunAsClient
     public void testOpenOwnersPage() {
-        String url = deploymentUrl.toExternalForm() + "findOwners.xhtml";
+        String url = deploymentUrl.toExternalForm() + "findOwners.jsf";
         log.info("url: " + url);
         driver.open(url);
         driver.waitForPageToLoad("15000");
@@ -80,7 +81,7 @@ public class OwnerTest {
     @InSequence(4)
     @RunAsClient
     public void testOpenNewOwnerPage() {
-        String url = deploymentUrl.toExternalForm() + "findOwners.xhtml";
+        String url = deploymentUrl.toExternalForm() + "findOwners.jsf";
         log.info("url: " + url);
         driver.open(url);
         driver.waitForPageToLoad("15000");
@@ -94,7 +95,7 @@ public class OwnerTest {
     @InSequence(5)
     @RunAsClient
     public void testOpenNewOwnerPageFromOwnersList() {
-        String url = deploymentUrl.toExternalForm() + "findOwners.xhtml";
+        String url = deploymentUrl.toExternalForm() + "findOwners.jsf";
         log.info("url: " + url);
         driver.open(url);
         driver.waitForPageToLoad("15000");
@@ -113,7 +114,7 @@ public class OwnerTest {
     @InSequence(6)
     @RunAsClient
     public void testAddNewOwner() {
-        String url = deploymentUrl.toExternalForm() + "findOwners.xhtml";
+        String url = deploymentUrl.toExternalForm() + "findOwners.jsf";
         log.info("url: " + url);
         driver.open(url);
         driver.waitForPageToLoad("15000");
@@ -144,7 +145,7 @@ public class OwnerTest {
     @InSequence(7)
     @RunAsClient
     public void testEditOwner() {
-        String url = deploymentUrl.toExternalForm() + "findOwners.xhtml";
+        String url = deploymentUrl.toExternalForm() + "findOwners.jsf";
         log.info("url: " + url);
         driver.open(url);
         driver.waitForPageToLoad("15000");

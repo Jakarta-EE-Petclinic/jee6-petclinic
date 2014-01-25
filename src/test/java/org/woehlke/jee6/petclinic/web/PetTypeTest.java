@@ -42,7 +42,7 @@ public class PetTypeTest {
     @InSequence(1)
     @RunAsClient
     public void testOpeningHomePage() {
-        String url = deploymentUrl.toExternalForm();
+        String url = deploymentUrl.toExternalForm()+ "hello.jsf";
         log.info("url: "+url);
         driver.open(url);
         driver.waitForPageToLoad("15000");
@@ -55,7 +55,7 @@ public class PetTypeTest {
     @InSequence(2)
     @RunAsClient
     public void testOpeningPetTypesPage() {
-        String url = deploymentUrl.toExternalForm() + "petTypes.xhtml";
+        String url = deploymentUrl.toExternalForm() + "petTypes.jsf";
         log.info("url: " + url);
         driver.open(url);
         driver.waitForPageToLoad("15000");
@@ -68,7 +68,7 @@ public class PetTypeTest {
     @InSequence(3)
     @RunAsClient
     public void testNewPetTypePage() {
-        String url = deploymentUrl.toExternalForm() + "petTypes.xhtml";
+        String url = deploymentUrl.toExternalForm() + "petTypes.jsf";
         log.info("url: "+url);
         driver.open(url);
         driver.waitForPageToLoad("15000");
@@ -97,7 +97,7 @@ public class PetTypeTest {
     @InSequence(4)
     @RunAsClient
     public void testEditPetTypePage() {
-        String url = deploymentUrl.toExternalForm() + "petTypes.xhtml";
+        String url = deploymentUrl.toExternalForm() + "petTypes.jsf";
         log.info("url: "+url);
         driver.open(url);
         driver.waitForPageToLoad("15000");
@@ -127,7 +127,7 @@ public class PetTypeTest {
     @InSequence(5)
     @RunAsClient
     public void testDeletePetTypePage() {
-        String url = deploymentUrl.toExternalForm() + "petTypes.xhtml";
+        String url = deploymentUrl.toExternalForm() + "petTypes.jsf";
         log.info("url: "+url);
         driver.open(url);
         driver.waitForPageToLoad("15000");

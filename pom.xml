@@ -15,6 +15,8 @@
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.scm.version>1.8.1</maven.scm.version>
+        <version.jboss.maven.plugin>7.3.Final</version.jboss.maven.plugin>
+        <version.war.plugin>2.1.1</version.war.plugin>
         <!-- Web dependencies -->
         <webjars-bootstrap.version>2.3.2</webjars-bootstrap.version>
         <version.arquillian.core>1.1.1.Final</version.arquillian.core>
@@ -579,6 +581,13 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.12</version>
+            </plugin>
+            <!-- The JBoss AS plugin deploys your war to a local JBoss AS container -->
+            <!-- To use, run: mvn package jboss-as:deploy -->
+            <plugin>
+                <groupId>org.jboss.as.plugins</groupId>
+                <artifactId>jboss-as-maven-plugin</artifactId>
+                <version>${version.jboss.maven.plugin}</version>
             </plugin>
         </plugins>
     </build>

@@ -42,9 +42,10 @@ public class VetTest {
     @InSequence(1)
     @RunAsClient
     public void testOpeningHomePage() {
-        String url = deploymentUrl.toExternalForm();
+        String url = deploymentUrl.toExternalForm()+ "hello.jsf";
         log.info("url: "+url);
         driver.open(url);
+        driver.waitForPageToLoad("15000");
         String pageTitle = driver.getTitle();
         log.info("pageTitle: " + pageTitle);
         Assert.assertEquals(pageTitle, "Petclinic");
@@ -54,9 +55,10 @@ public class VetTest {
     @InSequence(2)
     @RunAsClient
     public void testOpeningVetPage() {
-        String url = deploymentUrl.toExternalForm() + "vets.xhtml";
+        String url = deploymentUrl.toExternalForm() + "vets.jsf";
         log.info("url: " + url);
         driver.open(url);
+        driver.waitForPageToLoad("15000");
         boolean isPresent = driver.isElementPresent("id=veterinarians");
         log.info("isPresent: " + isPresent);
         Assert.assertTrue(isPresent);
@@ -66,7 +68,7 @@ public class VetTest {
     @InSequence(3)
     @RunAsClient
     public void testNewVetPage() {
-        String url = deploymentUrl.toExternalForm() + "vets.xhtml";
+        String url = deploymentUrl.toExternalForm() + "vets.jsf";
         log.info("url: "+url);
         driver.open(url);
         driver.click("id=veterinariansForm:getNewVetForm");
@@ -92,7 +94,7 @@ public class VetTest {
     @InSequence(4)
     @RunAsClient
     public void testEditVetPage() {
-        String url = deploymentUrl.toExternalForm() + "vets.xhtml";
+        String url = deploymentUrl.toExternalForm() + "vets.jsf";
         log.info("url: "+url);
         driver.open(url);
         driver.click("id=veterinariansForm:veterinariansTable:0:edit");
@@ -124,7 +126,7 @@ public class VetTest {
     @InSequence(5)
     @RunAsClient
     public void testDeleteVetPage() {
-        String url = deploymentUrl.toExternalForm() + "vets.xhtml";
+        String url = deploymentUrl.toExternalForm() + "vets.jsf";
         log.info("url: "+url);
         driver.open(url);
         driver.click("id=veterinariansForm:veterinariansTable:0:delete");

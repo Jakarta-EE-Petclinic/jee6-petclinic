@@ -43,7 +43,7 @@ public class SpecialtiesTest {
     @InSequence(1)
     @RunAsClient
     public void testOpeningHomePage() {
-        String url = deploymentUrl.toExternalForm();
+        String url = deploymentUrl.toExternalForm()+ "hello.jsf";
         log.info("url: "+url);
         driver.open(url);
         driver.waitForPageToLoad("15000");
@@ -56,7 +56,7 @@ public class SpecialtiesTest {
     @InSequence(2)
     @RunAsClient
     public void testOpeningSpecialtiesPage() {
-        String url = deploymentUrl.toExternalForm() + "specialties.xhtml";
+        String url = deploymentUrl.toExternalForm() + "specialties.jsf";
         log.info("url: " + url);
         driver.open(url);
         driver.waitForPageToLoad("15000");
@@ -69,7 +69,7 @@ public class SpecialtiesTest {
     @InSequence(3)
     @RunAsClient
     public void testNewSpecialtyPage() {
-        String url = deploymentUrl.toExternalForm() + "specialties.xhtml";
+        String url = deploymentUrl.toExternalForm() + "specialties.jsf";
         log.info("url: "+url);
         driver.open(url);
         driver.waitForPageToLoad("15000");
@@ -95,7 +95,7 @@ public class SpecialtiesTest {
     @InSequence(4)
     @RunAsClient
     public void testEditSpecialtyPage() {
-        String url = deploymentUrl.toExternalForm() + "specialties.xhtml";
+        String url = deploymentUrl.toExternalForm() + "specialties.jsf";
         log.info("url: "+url);
         driver.open(url);
         driver.waitForPageToLoad("15000");
@@ -121,7 +121,7 @@ public class SpecialtiesTest {
     @InSequence(5)
     @RunAsClient
     public void testDeleteSpecialtyPage() {
-        String url = deploymentUrl.toExternalForm() + "specialties.xhtml";
+        String url = deploymentUrl.toExternalForm() + "specialties.jsf";
         log.info("url: "+url);
         driver.open(url);
         driver.waitForPageToLoad("15000");
