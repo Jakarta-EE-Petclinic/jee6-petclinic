@@ -11,12 +11,10 @@
         <property name="instantiationTimeoutInSeconds">120</property>
     </extension>
 
-    <!--
     <container qualifier="jbossas-managed" default="true">
         <configuration>
             <property name="jbossHome">target/jboss-as-7.1.1.Final</property>
         </configuration>
     </container>
-    -->
 
 </arquillian>

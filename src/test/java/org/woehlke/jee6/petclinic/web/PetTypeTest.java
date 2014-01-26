@@ -3,22 +3,19 @@ package org.woehlke.jee6.petclinic.web;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
+import org.jboss.arquillian.graphene.page.Page;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 
 import java.net.URL;
 import java.util.logging.Logger;
 
-import static org.jboss.arquillian.graphene.Graphene.guardHttp;
+import static org.jboss.arquillian.graphene.Graphene.goTo;
 
 /**
  * Created with IntelliJ IDEA.
@@ -43,59 +40,33 @@ public class PetTypeTest {
     @ArquillianResource
     URL deploymentUrl;
 
-    @FindBy(id="petTypes")
-    private WebElement petTypes;
+    @Page
+    private HelloPage helloPage;
 
-    @FindBy(id="petTypesForm:getNewPetTypeForm")
-    private WebElement getNewPetTypeForm;
+    @Page
+    private PetTypesPage petTypesPage;
 
-    @FindBy(id="addNewPetType")
-    private WebElement addNewPetType;
+    @Page
+    private NewPetTypePage newPetTypePage;
 
-    @FindBy(id="addNewPetTypeForm:name")
-    private WebElement name;
+    @Page
+    private EditPetTypePage editPetTypePage;
 
-    @FindBy(id="addNewPetTypeForm:save")
-    private WebElement save;
-
-    @FindBy(id="petTypesForm:petTypesTable:0:name")
-    private WebElement nameInTable;
-
-    @FindBy(id="petTypesForm:petTypesTable:0:edit")
-    private WebElement editInTable;
-
-    @FindBy(id="editPetType")
-    private WebElement editPetType;
-
-    @FindBy(id="editPetTypeForm:name")
-    private WebElement editName;
-
-    @FindBy(id="editPetTypeForm:save")
-    private WebElement editSave;
-
-    @FindBy(id="petTypesForm:petTypesTable:0:delete")
-    private WebElement deleteInTable;
 
     @Test
     @InSequence(1)
     @RunAsClient
     public void testOpeningHomePage() {
-        String url = deploymentUrl.toExternalForm()+ "hello.jsf";
-        log.info("url: "+url);
-        driver.get(url);
-        String pageTitle = driver.getTitle();
-        log.info("pageTitle: " + pageTitle);
-        Assert.assertEquals(pageTitle, "Petclinic");
+        goTo(HelloPage.class);
+        helloPage.assertTitle();
     }
 
     @Test
     @InSequence(2)
     @RunAsClient
     public void testOpeningPetTypesPage() {
-        String url = deploymentUrl.toExternalForm() + "petTypes.jsf";
-        log.info("url: " + url);
-        driver.get(url);
-        Assert.assertTrue(petTypes.isDisplayed());
+        goTo(PetTypesPage.class);
+        petTypesPage.assertPageIsLoaded();
     }
 
 
@@ -103,17 +74,13 @@ public class PetTypeTest {
     @InSequence(3)
     @RunAsClient
     public void testNewPetTypePage() {
-        String url = deploymentUrl.toExternalForm() + "petTypes.jsf";
-        log.info("url: "+url);
-        driver.get(url);
-        Assert.assertTrue(petTypes.isDisplayed());
-        getNewPetTypeForm.click();
-        log.info("page: " + driver.getCurrentUrl());
-        Assert.assertTrue(addNewPetType.isDisplayed());
-        name.sendKeys("cat");
-        save.click();
-        Assert.assertTrue(petTypes.isDisplayed());
-        Assert.assertEquals("cat", nameInTable.getText());
+        goTo(PetTypesPage.class);
+        petTypesPage.assertPageIsLoaded();
+        petTypesPage.clickAddNewPetType();
+        newPetTypePage.assertPageIsLoaded();
+        newPetTypePage.addNewContent("cat");
+        petTypesPage.assertPageIsLoaded();
+        petTypesPage.assertNewContentFound("cat");
     }
 
 
@@ -121,36 +88,23 @@ public class PetTypeTest {
     @InSequence(4)
     @RunAsClient
     public void testEditPetTypePage() {
-        String url = deploymentUrl.toExternalForm() + "petTypes.jsf";
-        log.info("url: "+url);
-        driver.get(url);
-        Assert.assertTrue(petTypes.isDisplayed());
-        editInTable.click();
-        log.info("page: " + driver.getCurrentUrl());
-        Assert.assertTrue(editPetType.isDisplayed());
-        editName.clear();
-        editName.sendKeys("dog");
-        guardHttp(editSave).click();
-        Assert.assertTrue(petTypes.isDisplayed());
-        Assert.assertEquals("dog", nameInTable.getText());
+        goTo(PetTypesPage.class);
+        petTypesPage.assertPageIsLoaded();
+        petTypesPage.clickEditSpecialty();
+        editPetTypePage.assertPageIsLoaded();
+        editPetTypePage.editContent("dog");
+        petTypesPage.assertPageIsLoaded();
+        petTypesPage.assertEditedContentFound("dog");
     }
 
     @Test
     @InSequence(5)
     @RunAsClient
     public void testDeletePetTypePage() {
-        String url = deploymentUrl.toExternalForm() + "petTypes.jsf";
-        log.info("url: "+url);
-        driver.get(url);
-        Assert.assertTrue(petTypes.isDisplayed());
-        guardHttp(deleteInTable).click();
-        Assert.assertTrue(petTypes.isDisplayed());
-        boolean isDeleted = false;
-        try {
-            Assert.assertEquals(null,nameInTable);
-        } catch (NoSuchElementException elementException) {
-            isDeleted = true;
-        }
-        Assert.assertTrue(isDeleted);
+        goTo(PetTypesPage.class);
+        petTypesPage.assertPageIsLoaded();
+        petTypesPage.clickDeleteSpecialty();
+        petTypesPage.assertPageIsLoaded();
+        petTypesPage.assertDeletedContentNotFound();
     }
 }
