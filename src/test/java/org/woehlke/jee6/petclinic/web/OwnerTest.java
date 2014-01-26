@@ -52,6 +52,9 @@ public class OwnerTest {
     @Page
     private OwnersPage ownersPage;
 
+    @Page
+    private NewOwnerPage newOwnerPage;
+
     @Test
     @InSequence(1)
     @RunAsClient
@@ -82,26 +85,22 @@ public class OwnerTest {
     @InSequence(4)
     @RunAsClient
     public void testOpenNewOwnerPage() {
-        String url = deploymentUrl.toExternalForm() + "findOwners.jsf";
-        log.info("url: " + url);
-        driver.get(url);
-        Assert.assertTrue(driver.findElement(By.id("findOwners")).isDisplayed());
-        driver.findElement(By.id("findOwnersForm:getNewOwnerForm")).click();
-        Assert.assertTrue(driver.findElement(By.id("addNewOwner")).isDisplayed());
+        goTo(FindOwnersPage.class);
+        findOwnersPage.assertPageIsLoaded();
+        findOwnersPage.clickNewOwner();
+        newOwnerPage.assertPageIsLoaded();
     }
 
     @Test
     @InSequence(5)
     @RunAsClient
     public void testOpenNewOwnerPageFromOwnersList() {
-        String url = deploymentUrl.toExternalForm() + "findOwners.jsf";
-        log.info("url: " + url);
-        driver.get(url);
-        Assert.assertTrue(driver.findElement(By.id("findOwners")).isDisplayed());
-        driver.findElement(By.id("findOwnersForm:search")).click();
-        Assert.assertTrue(driver.findElement(By.id("owners")).isDisplayed());
-        driver.findElement(By.id("ownersForm:getNewOwnerForm")).click();
-        Assert.assertTrue(driver.findElement(By.id("addNewOwner")).isDisplayed());
+        goTo(FindOwnersPage.class);
+        findOwnersPage.assertPageIsLoaded();
+        findOwnersPage.clickSearch();
+        ownersPage.assertPageIsLoaded();
+        ownersPage.clickNewOwner();
+        newOwnerPage.assertPageIsLoaded();
     }
 
     @Test

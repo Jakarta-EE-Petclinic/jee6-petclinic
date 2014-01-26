@@ -21,11 +21,18 @@ public class FindOwnersPage {
     @FindBy(id="findOwnersForm:search")
     private WebElement search;
 
+    @FindBy(id="findOwnersForm:getNewOwnerForm")
+    private WebElement getNewOwnerForm;
+
     public void assertPageIsLoaded() {
         Assert.assertTrue(findOwners.isDisplayed());
     }
 
     public void clickSearch() {
         search.click();
+    }
+
+    public void clickNewOwner() {
+        getNewOwnerForm.click();
     }
 }

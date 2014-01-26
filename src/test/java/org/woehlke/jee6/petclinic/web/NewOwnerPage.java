@@ -8,22 +8,15 @@ import org.openqa.selenium.support.FindBy;
  * Created with IntelliJ IDEA.
  * User: tw
  * Date: 26.01.14
- * Time: 22:24
+ * Time: 22:48
  * To change this template use File | Settings | File Templates.
  */
-public class OwnersPage {
+public class NewOwnerPage {
 
-    @FindBy(id="owners")
-    private WebElement owners;
-
-    @FindBy(id="ownersForm:getNewOwnerForm")
-    private WebElement getNewOwnerForm;
+    @FindBy(id="addNewOwner")
+    private WebElement addNewOwner;
 
     public void assertPageIsLoaded() {
-        Assert.assertTrue(owners.isDisplayed());
-    }
-
-    public void clickNewOwner() {
-        getNewOwnerForm.click();
+        Assert.assertTrue(addNewOwner.isDisplayed());
     }
 }
