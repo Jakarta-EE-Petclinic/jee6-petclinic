@@ -25,7 +25,9 @@ public class Deployments {
 
     public static WebArchive createSpecialtiesDeployment() {
         File[] deps = Maven.resolver().loadPomFromFile("pom.xml").importRuntimeDependencies().resolve().withTransitivity().asFile();
-        return ShrinkWrap.create(WebArchive.class, "specialties.war")
+        WebArchive war = null;
+        try {
+            war = ShrinkWrap.create(WebArchive.class, "specialties.war")
                 .addClasses(SpecialtyController.class, LanguageBean.class,
                         SpecialtyDao.class, SpecialtyDaoImpl.class,
                         Owner.class, Pet.class, PetType.class,
@@ -40,6 +42,10 @@ public class Deployments {
                 .addAsWebInfResource(
                         new StringAsset("<faces-config version=\"2.0\"/>"),
                         "faces-config.xml");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return war;
     }
 
     public static WebArchive createPetTypeDeployment() {

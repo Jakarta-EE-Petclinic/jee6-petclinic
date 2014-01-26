@@ -1,6 +1,5 @@
 package org.woehlke.jee6.petclinic.web;
 
-import com.thoughtworks.selenium.DefaultSelenium;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
@@ -11,9 +10,15 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 import java.net.URL;
 import java.util.logging.Logger;
+
+import static org.jboss.arquillian.graphene.Graphene.guardHttp;
 
 /**
  * Created with IntelliJ IDEA.
@@ -33,10 +38,43 @@ public class PetTypeTest {
     }
 
     @Drone
-    DefaultSelenium driver;
+    WebDriver driver;
 
     @ArquillianResource
     URL deploymentUrl;
+
+    @FindBy(id="petTypes")
+    private WebElement petTypes;
+
+    @FindBy(id="petTypesForm:getNewPetTypeForm")
+    private WebElement getNewPetTypeForm;
+
+    @FindBy(id="addNewPetType")
+    private WebElement addNewPetType;
+
+    @FindBy(id="addNewPetTypeForm:name")
+    private WebElement name;
+
+    @FindBy(id="addNewPetTypeForm:save")
+    private WebElement save;
+
+    @FindBy(id="petTypesForm:petTypesTable:0:name")
+    private WebElement nameInTable;
+
+    @FindBy(id="petTypesForm:petTypesTable:0:edit")
+    private WebElement editInTable;
+
+    @FindBy(id="editPetType")
+    private WebElement editPetType;
+
+    @FindBy(id="editPetTypeForm:name")
+    private WebElement editName;
+
+    @FindBy(id="editPetTypeForm:save")
+    private WebElement editSave;
+
+    @FindBy(id="petTypesForm:petTypesTable:0:delete")
+    private WebElement deleteInTable;
 
     @Test
     @InSequence(1)
@@ -44,8 +82,7 @@ public class PetTypeTest {
     public void testOpeningHomePage() {
         String url = deploymentUrl.toExternalForm()+ "hello.jsf";
         log.info("url: "+url);
-        driver.open(url);
-        driver.waitForPageToLoad("15000");
+        driver.get(url);
         String pageTitle = driver.getTitle();
         log.info("pageTitle: " + pageTitle);
         Assert.assertEquals(pageTitle, "Petclinic");
@@ -57,12 +94,10 @@ public class PetTypeTest {
     public void testOpeningPetTypesPage() {
         String url = deploymentUrl.toExternalForm() + "petTypes.jsf";
         log.info("url: " + url);
-        driver.open(url);
-        driver.waitForPageToLoad("15000");
-        boolean isPresent = driver.isElementPresent("id=petTypes");
-        log.info("isPresent: " + isPresent);
-        Assert.assertTrue(isPresent);
+        driver.get(url);
+        Assert.assertTrue(petTypes.isDisplayed());
     }
+
 
     @Test
     @InSequence(3)
@@ -70,28 +105,17 @@ public class PetTypeTest {
     public void testNewPetTypePage() {
         String url = deploymentUrl.toExternalForm() + "petTypes.jsf";
         log.info("url: "+url);
-        driver.open(url);
-        driver.waitForPageToLoad("15000");
-        boolean isPresent = driver.isElementPresent("id=petTypes");
-        log.info("isPresent: " + isPresent);
-        Assert.assertTrue(isPresent);
-        driver.click("id=petTypesForm:getNewPetTypeForm");
-        driver.waitForPageToLoad("15000");
-        String page = driver.getLocation();
-        log.info("page: "+page);
-        isPresent = driver.isElementPresent("id=addNewPetType");
-        log.info("isPresent: " + isPresent);
-        Assert.assertTrue(isPresent);
-        driver.type("id=addNewPetTypeForm:name","cat");
-        driver.click("id=addNewPetTypeForm:save");
-        driver.waitForPageToLoad("15000");
-        isPresent = driver.isElementPresent("id=petTypes");
-        log.info("isPresent: " + isPresent);
-        Assert.assertTrue(isPresent);
-        isPresent = driver.isElementPresent("xpath=//td[contains(text(), 'cat')]");
-        log.info("isPresent: " + isPresent);
-        Assert.assertTrue(isPresent);
+        driver.get(url);
+        Assert.assertTrue(petTypes.isDisplayed());
+        getNewPetTypeForm.click();
+        log.info("page: " + driver.getCurrentUrl());
+        Assert.assertTrue(addNewPetType.isDisplayed());
+        name.sendKeys("cat");
+        save.click();
+        Assert.assertTrue(petTypes.isDisplayed());
+        Assert.assertEquals("cat", nameInTable.getText());
     }
+
 
     @Test
     @InSequence(4)
@@ -99,29 +123,17 @@ public class PetTypeTest {
     public void testEditPetTypePage() {
         String url = deploymentUrl.toExternalForm() + "petTypes.jsf";
         log.info("url: "+url);
-        driver.open(url);
-        driver.waitForPageToLoad("15000");
-        boolean isPresent = driver.isElementPresent("id=petTypes");
-        log.info("isPresent: " + isPresent);
-        Assert.assertTrue(isPresent);
-        driver.click("id=petTypesForm:petTypesTable:0:edit");
-        driver.waitForPageToLoad("15000");
-        String page = driver.getLocation();
-        log.info("page: "+page);
-        isPresent = driver.isElementPresent("id=editPetType");
-        log.info("isPresent: " + isPresent);
-        Assert.assertTrue(isPresent);
-        driver.type("id=editPetTypeForm:name","dog");
-        driver.click("id=editPetTypeForm:save");
-        driver.waitForPageToLoad("15000");
-        isPresent = driver.isElementPresent("id=petTypes");
-        log.info("isPresent: " + isPresent);
-        Assert.assertTrue(isPresent);
-        isPresent = driver.isElementPresent("xpath=//td[contains(text(), 'dog')]");
-        log.info("isPresent: " + isPresent);
-        Assert.assertTrue(isPresent);
+        driver.get(url);
+        Assert.assertTrue(petTypes.isDisplayed());
+        editInTable.click();
+        log.info("page: " + driver.getCurrentUrl());
+        Assert.assertTrue(editPetType.isDisplayed());
+        editName.clear();
+        editName.sendKeys("dog");
+        guardHttp(editSave).click();
+        Assert.assertTrue(petTypes.isDisplayed());
+        Assert.assertEquals("dog", nameInTable.getText());
     }
-
 
     @Test
     @InSequence(5)
@@ -129,20 +141,16 @@ public class PetTypeTest {
     public void testDeletePetTypePage() {
         String url = deploymentUrl.toExternalForm() + "petTypes.jsf";
         log.info("url: "+url);
-        driver.open(url);
-        driver.waitForPageToLoad("15000");
-        boolean isPresent = driver.isElementPresent("id=petTypes");
-        log.info("isPresent: " + isPresent);
-        Assert.assertTrue(isPresent);
-        driver.click("id=petTypesForm:petTypesTable:0:delete");
-        driver.waitForPageToLoad("15000");
-        String page = driver.getLocation();
-        log.info("page: "+page);
-        isPresent = driver.isElementPresent("id=petTypes");
-        log.info("isPresent: " + isPresent);
-        Assert.assertTrue(isPresent);
-        isPresent = driver.isElementPresent("xpath=//td[contains(text(), 'dog')]");
-        log.info("isPresent: " + isPresent);
-        Assert.assertFalse(isPresent);
+        driver.get(url);
+        Assert.assertTrue(petTypes.isDisplayed());
+        guardHttp(deleteInTable).click();
+        Assert.assertTrue(petTypes.isDisplayed());
+        boolean isDeleted = false;
+        try {
+            Assert.assertEquals(null,nameInTable);
+        } catch (NoSuchElementException elementException) {
+            isDeleted = true;
+        }
+        Assert.assertTrue(isDeleted);
     }
 }

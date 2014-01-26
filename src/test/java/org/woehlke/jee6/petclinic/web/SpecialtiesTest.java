@@ -1,9 +1,9 @@
 package org.woehlke.jee6.petclinic.web;
 
-import com.thoughtworks.selenium.DefaultSelenium;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
+import org.jboss.arquillian.graphene.page.Page;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -11,9 +11,12 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.openqa.selenium.WebDriver;
 
 import java.net.URL;
 import java.util.logging.Logger;
+
+import static org.jboss.arquillian.graphene.Graphene.goTo;
 
 
 /**
@@ -34,107 +37,78 @@ public class SpecialtiesTest {
     }
 
     @Drone
-    DefaultSelenium driver;
+    private WebDriver driver;
 
     @ArquillianResource
-    URL deploymentUrl;
+    private URL deploymentUrl;
+
+    @Page
+    private HelloPage helloPage;
+
+    @Page
+    private SpecialtiesPage specialtiesPage;
+
+    @Page
+    private NewSpecialtiesPage newSpecialtiesPage;
+
+    @Page
+    private EditSpecialtiesPage editSpecialtiesPage;
 
     @Test
     @InSequence(1)
     @RunAsClient
     public void testOpeningHomePage() {
-        String url = deploymentUrl.toExternalForm()+ "hello.jsf";
-        log.info("url: "+url);
-        driver.open(url);
-        driver.waitForPageToLoad("15000");
-        String pageTitle = driver.getTitle();
-        log.info("pageTitle: " + pageTitle);
-        Assert.assertEquals(pageTitle, "Petclinic");
+        goTo(HelloPage.class);
+        helloPage.assertTitle();
     }
+
 
     @Test
     @InSequence(2)
     @RunAsClient
     public void testOpeningSpecialtiesPage() {
-        String url = deploymentUrl.toExternalForm() + "specialties.jsf";
-        log.info("url: " + url);
-        driver.open(url);
-        driver.waitForPageToLoad("15000");
-        boolean isPresent = driver.isElementPresent("id=specialties");
-        log.info("isPresent: " + isPresent);
-        Assert.assertTrue(isPresent);
+        goTo(SpecialtiesPage.class);
+        specialtiesPage.assertPageIsLoaded();
     }
+
 
     @Test
     @InSequence(3)
     @RunAsClient
     public void testNewSpecialtyPage() {
-        String url = deploymentUrl.toExternalForm() + "specialties.jsf";
-        log.info("url: "+url);
-        driver.open(url);
-        driver.waitForPageToLoad("15000");
-        driver.click("id=specialtiesForm:addNewSpecialty");
-        driver.waitForPageToLoad("15000");
-        String page = driver.getLocation();
-        log.info("page: "+page);
-        boolean isPresent = driver.isElementPresent("id=addNewSpecialty");
-        log.info("isPresent: " + isPresent);
-        Assert.assertTrue(isPresent);
-        driver.type("id=addNewSpecialtyForm:name","dentist");
-        driver.click("id=addNewSpecialtyForm:save");
-        driver.waitForPageToLoad("15000");
-        isPresent = driver.isElementPresent("id=specialties");
-        log.info("isPresent: " + isPresent);
-        Assert.assertTrue(isPresent);
-        isPresent = driver.isElementPresent("xpath=//td[contains(text(), 'dentist')]");
-        log.info("isPresent: " + isPresent);
-        Assert.assertTrue(isPresent);
+        goTo(SpecialtiesPage.class);
+        specialtiesPage.assertPageIsLoaded();
+        specialtiesPage.clickAddNewSpecialty();
+        newSpecialtiesPage.assertPageIsLoaded();
+        newSpecialtiesPage.addNewContent("dentist");
+        specialtiesPage.assertPageIsLoaded();
+        specialtiesPage.assertNewContentFound("dentist");
     }
+
 
     @Test
     @InSequence(4)
     @RunAsClient
     public void testEditSpecialtyPage() {
-        String url = deploymentUrl.toExternalForm() + "specialties.jsf";
-        log.info("url: "+url);
-        driver.open(url);
-        driver.waitForPageToLoad("15000");
-        driver.click("id=specialtiesForm:specialtiesTable:0:edit");
-        driver.waitForPageToLoad("15000");
-        String page = driver.getLocation();
-        log.info("page: "+page);
-        boolean isPresent = driver.isElementPresent("id=editSpecialty");
-        log.info("isPresent: " + isPresent);
-        Assert.assertTrue(isPresent);
-        driver.type("id=editSpecialtyForm:name","specialist");
-        driver.click("id=editSpecialtyForm:save");
-        driver.waitForPageToLoad("15000");
-        isPresent = driver.isElementPresent("id=specialties");
-        log.info("isPresent: " + isPresent);
-        Assert.assertTrue(isPresent);
-        isPresent = driver.isElementPresent("xpath=//td[contains(text(), 'specialist')]");
-        log.info("isPresent: " + isPresent);
-        Assert.assertTrue(isPresent);
+        goTo(SpecialtiesPage.class);
+        specialtiesPage.assertPageIsLoaded();
+        specialtiesPage.clickEditSpecialty();
+        editSpecialtiesPage.assertPageIsLoaded();
+        editSpecialtiesPage.editContent("specialist");
+        specialtiesPage.assertPageIsLoaded();
+        specialtiesPage.assertEditedContentFound("specialist");
     }
 
     @Test
     @InSequence(5)
     @RunAsClient
     public void testDeleteSpecialtyPage() {
-        String url = deploymentUrl.toExternalForm() + "specialties.jsf";
-        log.info("url: "+url);
-        driver.open(url);
-        driver.waitForPageToLoad("15000");
-        driver.click("id=specialtiesForm:specialtiesTable:0:delete");
-        driver.waitForPageToLoad("15000");
-        String page = driver.getLocation();
-        log.info("page: "+page);
-        boolean isPresent = driver.isElementPresent("id=specialties");
-        log.info("isPresent: " + isPresent);
-        Assert.assertTrue(isPresent);
-        isPresent = driver.isElementPresent("xpath=//td[contains(text(), 'specialist')]");
-        log.info("isPresent: " + isPresent);
-        Assert.assertFalse(isPresent);
+        goTo(SpecialtiesPage.class);
+        specialtiesPage.assertPageIsLoaded();
+        specialtiesPage.clickDeleteSpecialty();
+        specialtiesPage.assertPageIsLoaded();
+        specialtiesPage.assertDeletedContentNotFound();
     }
+
 
 }
