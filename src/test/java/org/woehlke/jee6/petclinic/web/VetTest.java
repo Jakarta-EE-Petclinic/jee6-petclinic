@@ -45,6 +45,15 @@ public class VetTest {
     @Page
     private HelloPage helloPage;
 
+    @Page
+    private VetsPage vetsPage;
+
+    @Page
+    private NewVetPage newVetPage;
+
+    @Page
+    private EditVetPage editVetPage;
+
     @Test
     @InSequence(1)
     @RunAsClient
@@ -53,11 +62,14 @@ public class VetTest {
         helloPage.assertTitle();
     }
 
-    /*
+
     @Test
     @InSequence(2)
     @RunAsClient
     public void testOpeningVetPage() {
+        goTo(VetsPage.class);
+        vetsPage.assertPageIsLoaded();
+        /*
         String url = deploymentUrl.toExternalForm() + "vets.jsf";
         log.info("url: " + url);
         driver.open(url);
@@ -65,12 +77,22 @@ public class VetTest {
         boolean isPresent = driver.isElementPresent("id=veterinarians");
         log.info("isPresent: " + isPresent);
         Assert.assertTrue(isPresent);
+        */
     }
 
     @Test
     @InSequence(3)
     @RunAsClient
     public void testNewVetPage() {
+        goTo(VetsPage.class);
+        vetsPage.assertPageIsLoaded();
+        vetsPage.assertPageIsLoaded();
+        vetsPage.clickAddNewVet();
+        newVetPage.assertPageIsLoaded();
+        newVetPage.addNewContent("Thomas","Woehlke");
+        vetsPage.assertPageIsLoaded();
+        vetsPage.assertNewContentFound("Thomas","Woehlke");
+        /*
         String url = deploymentUrl.toExternalForm() + "vets.jsf";
         log.info("url: "+url);
         driver.open(url);
@@ -91,12 +113,21 @@ public class VetTest {
         isPresent = driver.isElementPresent("xpath=//td[contains(text(), 'Thomas')]");
         log.info("isPresent: " + isPresent);
         Assert.assertTrue(isPresent);
+        */
     }
 
     @Test
     @InSequence(4)
     @RunAsClient
     public void testEditVetPage() {
+        goTo(VetsPage.class);
+        vetsPage.assertPageIsLoaded();
+        vetsPage.clickEditVet();
+        editVetPage.assertPageIsLoaded();
+        editVetPage.editContent("Willy","Wacker");
+        vetsPage.assertPageIsLoaded();
+        vetsPage.assertEditedContentFound("Willy","Wacker");
+        /*
         String url = deploymentUrl.toExternalForm() + "vets.jsf";
         log.info("url: "+url);
         driver.open(url);
@@ -123,12 +154,19 @@ public class VetTest {
         isPresent = driver.isElementPresent("xpath=//td[contains(text(), 'none')]");
         log.info("isPresent: " + isPresent);
         Assert.assertTrue(isPresent);
+        */
     }
 
     @Test
     @InSequence(5)
     @RunAsClient
     public void testDeleteVetPage() {
+        goTo(VetsPage.class);
+        vetsPage.assertPageIsLoaded();
+        vetsPage.clickDeleteVet();
+        vetsPage.assertPageIsLoaded();
+        vetsPage.assertDeletedContentNotFound();
+        /*
         String url = deploymentUrl.toExternalForm() + "vets.jsf";
         log.info("url: "+url);
         driver.open(url);
@@ -148,7 +186,6 @@ public class VetTest {
         isPresent = driver.isElementPresent("xpath=//td[contains(text(), 'none')]");
         log.info("isPresent: " + isPresent);
         Assert.assertFalse(isPresent);
+        */
     }
-
-    */
 }
