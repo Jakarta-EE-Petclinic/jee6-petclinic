@@ -3,6 +3,7 @@ package org.woehlke.jee6.petclinic.web;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.jboss.arquillian.drone.api.annotation.Drone;
+import org.jboss.arquillian.graphene.page.Page;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -15,6 +16,8 @@ import org.openqa.selenium.WebDriver;
 
 import java.net.URL;
 import java.util.logging.Logger;
+
+import static org.jboss.arquillian.graphene.Graphene.goTo;
 
 
 /**
@@ -40,17 +43,15 @@ public class OwnerTest {
     @ArquillianResource
     URL deploymentUrl;
 
+    @Page
+    private HelloPage helloPage;
+
     @Test
     @InSequence(1)
     @RunAsClient
     public void testOpeningHomePage() {
-        String url = deploymentUrl.toExternalForm()+ "hello.jsf";
-        log.info("url: " + url);
-        driver.get(url);
-        log.info(driver.getCurrentUrl());
-        String pageTitle = driver.getTitle();
-        log.info("pageTitle: " + pageTitle);
-        Assert.assertEquals(pageTitle, "Petclinic");
+        goTo(HelloPage.class);
+        helloPage.assertTitle();
     }
 
     @Test
@@ -60,7 +61,6 @@ public class OwnerTest {
         String url = deploymentUrl.toExternalForm() + "findOwners.jsf";
         log.info("url: " + url);
         driver.get(url);
-        ////driver.waitForPageToLoad("15000");
         Assert.assertTrue(driver.findElement(By.id("findOwners")).isDisplayed());
     }
 
@@ -71,10 +71,8 @@ public class OwnerTest {
         String url = deploymentUrl.toExternalForm() + "findOwners.jsf";
         log.info("url: " + url);
         driver.get(url);
-        //driver.waitForPageToLoad("15000");
         Assert.assertTrue(driver.findElement(By.id("findOwners")).isDisplayed());
         driver.findElement(By.id("findOwnersForm:search")).click();
-        //driver.waitForPageToLoad("15000");
         Assert.assertTrue(driver.findElement(By.id("owners")).isDisplayed());
     }
 
@@ -85,10 +83,8 @@ public class OwnerTest {
         String url = deploymentUrl.toExternalForm() + "findOwners.jsf";
         log.info("url: " + url);
         driver.get(url);
-        //driver.waitForPageToLoad("15000");
         Assert.assertTrue(driver.findElement(By.id("findOwners")).isDisplayed());
         driver.findElement(By.id("findOwnersForm:getNewOwnerForm")).click();
-        //driver.waitForPageToLoad("15000");
         Assert.assertTrue(driver.findElement(By.id("addNewOwner")).isDisplayed());
     }
 
@@ -99,13 +95,10 @@ public class OwnerTest {
         String url = deploymentUrl.toExternalForm() + "findOwners.jsf";
         log.info("url: " + url);
         driver.get(url);
-        //driver.waitForPageToLoad("15000");
         Assert.assertTrue(driver.findElement(By.id("findOwners")).isDisplayed());
         driver.findElement(By.id("findOwnersForm:search")).click();
-        //driver.waitForPageToLoad("15000");
         Assert.assertTrue(driver.findElement(By.id("owners")).isDisplayed());
         driver.findElement(By.id("ownersForm:getNewOwnerForm")).click();
-        //driver.waitForPageToLoad("15000");
         Assert.assertTrue(driver.findElement(By.id("addNewOwner")).isDisplayed());
     }
 
@@ -147,16 +140,12 @@ public class OwnerTest {
         String url = deploymentUrl.toExternalForm() + "findOwners.jsf";
         log.info("url: " + url);
         driver.get(url);
-        //driver.waitForPageToLoad("15000");
         Assert.assertTrue(driver.findElement(By.id("findOwners")).isDisplayed());
         driver.findElement(By.id("findOwnersForm:search")).click();
-        //driver.waitForPageToLoad("15000");
         Assert.assertTrue(driver.findElement(By.id("owners")).isDisplayed());
         driver.findElement(By.id("ownersForm:ownersTable:0:showOwner")).click();
-        //driver.waitForPageToLoad("15000");
         Assert.assertTrue(driver.findElement(By.id("showOwnerForm")).isDisplayed());
         driver.findElement(By.id("showOwnerForm:edit")).click();
-        //driver.waitForPageToLoad("15000");
         Assert.assertTrue(driver.findElement(By.id("editOwnerForm")).isDisplayed());
         driver.findElement(By.id("editOwnerForm:firstName")).clear();
         driver.findElement(By.id("editOwnerForm:lastName")).clear();
@@ -169,7 +158,6 @@ public class OwnerTest {
         driver.findElement(By.id("editOwnerForm:city")).sendKeys("Hamburg");
         driver.findElement(By.id("editOwnerForm:telephone")).sendKeys("04012345678");
         driver.findElement(By.id("editOwnerForm:save")).click();
-        //driver.waitForPageToLoad("15000");
         Assert.assertTrue(driver.findElement(By.id("showOwnerForm")).isDisplayed());
         Assert.assertTrue(driver.findElement(By.xpath("//span[contains(text(), 'Willy')]")).isDisplayed());
         Assert.assertTrue(driver.findElement(By.xpath("//span[contains(text(), 'Wombel')]")).isDisplayed());
