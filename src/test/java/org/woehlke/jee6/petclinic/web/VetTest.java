@@ -69,15 +69,6 @@ public class VetTest {
     public void testOpeningVetPage() {
         goTo(VetsPage.class);
         vetsPage.assertPageIsLoaded();
-        /*
-        String url = deploymentUrl.toExternalForm() + "vets.jsf";
-        log.info("url: " + url);
-        driver.open(url);
-        //driver.waitForPageToLoad("15000");
-        boolean isPresent = driver.isElementPresent("id=veterinarians");
-        log.info("isPresent: " + isPresent);
-        Assert.assertTrue(isPresent);
-        */
     }
 
     @Test
@@ -92,28 +83,6 @@ public class VetTest {
         newVetPage.addNewContent("Thomas","Woehlke");
         vetsPage.assertPageIsLoaded();
         vetsPage.assertNewContentFound("Thomas","Woehlke");
-        /*
-        String url = deploymentUrl.toExternalForm() + "vets.jsf";
-        log.info("url: "+url);
-        driver.open(url);
-        driver.click("id=veterinariansForm:getNewVetForm");
-        //driver.waitForPageToLoad("15000");
-        String page = driver.getLocation();
-        log.info("page: "+page);
-        boolean isPresent = driver.isElementPresent("id=addNewVeterinarian");
-        log.info("isPresent: " + isPresent);
-        Assert.assertTrue(isPresent);
-        driver.type("id=addNewVeterinarianForm:firstName","Thomas");
-        driver.type("id=addNewVeterinarianForm:lastName","Woehlke");
-        driver.click("id=addNewVeterinarianForm:save");
-        //driver.waitForPageToLoad("15000");
-        isPresent = driver.isElementPresent("id=veterinarians");
-        log.info("isPresent: " + isPresent);
-        Assert.assertTrue(isPresent);
-        isPresent = driver.isElementPresent("xpath=//td[contains(text(), 'Thomas')]");
-        log.info("isPresent: " + isPresent);
-        Assert.assertTrue(isPresent);
-        */
     }
 
     @Test
@@ -127,34 +96,6 @@ public class VetTest {
         editVetPage.editContent("Willy","Wacker");
         vetsPage.assertPageIsLoaded();
         vetsPage.assertEditedContentFound("Willy","Wacker");
-        /*
-        String url = deploymentUrl.toExternalForm() + "vets.jsf";
-        log.info("url: "+url);
-        driver.open(url);
-        driver.click("id=veterinariansForm:veterinariansTable:0:edit");
-        //driver.waitForPageToLoad("15000");
-        String page = driver.getLocation();
-        log.info("page: "+page);
-        boolean isPresent = driver.isElementPresent("id=editVeterinarian");
-        log.info("isPresent: " + isPresent);
-        Assert.assertTrue(isPresent);
-        driver.type("id=editVeterinarianForm:firstName","Willy");
-        driver.type("id=editVeterinarianForm:lastName","Wombel");
-        driver.click("id=editVeterinarianForm:save");
-        //driver.waitForPageToLoad("15000");
-        isPresent = driver.isElementPresent("id=veterinarians");
-        log.info("isPresent: " + isPresent);
-        Assert.assertTrue(isPresent);
-        isPresent = driver.isElementPresent("xpath=//td[contains(text(), 'Willy')]");
-        log.info("isPresent: " + isPresent);
-        Assert.assertTrue(isPresent);
-        isPresent = driver.isElementPresent("xpath=//td[contains(text(), 'Wombel')]");
-        log.info("isPresent: " + isPresent);
-        Assert.assertTrue(isPresent);
-        isPresent = driver.isElementPresent("xpath=//td[contains(text(), 'none')]");
-        log.info("isPresent: " + isPresent);
-        Assert.assertTrue(isPresent);
-        */
     }
 
     @Test
@@ -166,26 +107,5 @@ public class VetTest {
         vetsPage.clickDeleteVet();
         vetsPage.assertPageIsLoaded();
         vetsPage.assertDeletedContentNotFound();
-        /*
-        String url = deploymentUrl.toExternalForm() + "vets.jsf";
-        log.info("url: "+url);
-        driver.open(url);
-        driver.click("id=veterinariansForm:veterinariansTable:0:delete");
-        //driver.waitForPageToLoad("15000");
-        String page = driver.getLocation();
-        log.info("page: "+page);
-        boolean isPresent = driver.isElementPresent("id=veterinarians");
-        log.info("isPresent: " + isPresent);
-        Assert.assertTrue(isPresent);
-        isPresent = driver.isElementPresent("xpath=//td[contains(text(), 'Willy')]");
-        log.info("isPresent: " + isPresent);
-        Assert.assertFalse(isPresent);
-        isPresent = driver.isElementPresent("xpath=//td[contains(text(), 'Wombel')]");
-        log.info("isPresent: " + isPresent);
-        Assert.assertFalse(isPresent);
-        isPresent = driver.isElementPresent("xpath=//td[contains(text(), 'none')]");
-        log.info("isPresent: " + isPresent);
-        Assert.assertFalse(isPresent);
-        */
     }
 }
