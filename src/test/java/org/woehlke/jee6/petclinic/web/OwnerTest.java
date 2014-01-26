@@ -30,7 +30,7 @@ import static org.jboss.arquillian.graphene.Graphene.goTo;
 @RunWith(Arquillian.class)
 public class OwnerTest {
 
-    private static Logger log = Logger.getLogger(SpecialtiesTest.class.getName());
+    private static Logger log = Logger.getLogger(OwnerTest.class.getName());
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
@@ -46,6 +46,12 @@ public class OwnerTest {
     @Page
     private HelloPage helloPage;
 
+    @Page
+    private FindOwnersPage findOwnersPage;
+
+    @Page
+    private OwnersPage ownersPage;
+
     @Test
     @InSequence(1)
     @RunAsClient
@@ -58,22 +64,18 @@ public class OwnerTest {
     @InSequence(2)
     @RunAsClient
     public void testOpenFindOwnersPage() {
-        String url = deploymentUrl.toExternalForm() + "findOwners.jsf";
-        log.info("url: " + url);
-        driver.get(url);
-        Assert.assertTrue(driver.findElement(By.id("findOwners")).isDisplayed());
+        goTo(FindOwnersPage.class);
+        findOwnersPage.assertPageIsLoaded();
     }
 
     @Test
     @InSequence(3)
     @RunAsClient
     public void testOpenOwnersPage() {
-        String url = deploymentUrl.toExternalForm() + "findOwners.jsf";
-        log.info("url: " + url);
-        driver.get(url);
-        Assert.assertTrue(driver.findElement(By.id("findOwners")).isDisplayed());
-        driver.findElement(By.id("findOwnersForm:search")).click();
-        Assert.assertTrue(driver.findElement(By.id("owners")).isDisplayed());
+        goTo(FindOwnersPage.class);
+        findOwnersPage.assertPageIsLoaded();
+        findOwnersPage.clickSearch();
+        ownersPage.assertPageIsLoaded();
     }
 
     @Test
