@@ -29,9 +29,9 @@ import static org.jboss.arquillian.graphene.Graphene.goTo;
  * To change this template use File | Settings | File Templates.
  */
 @RunWith(Arquillian.class)
-public class VetTest {
+public class Test02Vet {
 
-    private static Logger log = Logger.getLogger(VetTest.class.getName());
+    private static Logger log = Logger.getLogger(Test02Vet.class.getName());
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {

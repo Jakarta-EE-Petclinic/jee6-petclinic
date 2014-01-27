@@ -30,9 +30,9 @@ import static org.jboss.arquillian.graphene.Graphene.goTo;
  * To change this template use File | Settings | File Templates.
  */
 @RunWith(Arquillian.class)
-public class SpecialtiesTest {
+public class Test01Specialties {
 
-    private static Logger log = Logger.getLogger(SpecialtiesTest.class.getName());
+    private static Logger log = Logger.getLogger(Test01Specialties.class.getName());
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {

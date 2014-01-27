@@ -34,6 +34,9 @@ public class ShowOwnerPage {
     @FindBy(id="showOwnerForm:edit")
     private WebElement edit;
 
+    @FindBy(id="showOwnerForm:addPet")
+    private WebElement addPet;
+
     public void assertPageIsLoaded() {
         Assert.assertTrue(showOwnerForm.isDisplayed());
     }
@@ -52,5 +55,9 @@ public class ShowOwnerPage {
         Assert.assertEquals(address,this.address.getText());
         Assert.assertEquals(city,this.city.getText());
         Assert.assertEquals(telephone,this.telephone.getText());
+    }
+
+    public void clickAddNewPet() {
+        addPet.click();
     }
 }

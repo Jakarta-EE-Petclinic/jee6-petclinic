@@ -29,9 +29,9 @@ import static org.jboss.arquillian.graphene.Graphene.goTo;
  * To change this template use File | Settings | File Templates.
  */
 @RunWith(Arquillian.class)
-public class PetTypeTest {
+public class Test03PetType {
 
-    private static Logger log = Logger.getLogger(PetTypeTest.class.getName());
+    private static Logger log = Logger.getLogger(Test03PetType.class.getName());
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
@@ -82,9 +82,9 @@ public class PetTypeTest {
         petTypesPage.assertPageIsLoaded();
         petTypesPage.clickAddNewPetType();
         newPetTypePage.assertPageIsLoaded();
-        newPetTypePage.addNewContent("cat");
+        newPetTypePage.addNewContent("dog");
         petTypesPage.assertPageIsLoaded();
-        petTypesPage.assertNewContentFound("cat");
+        petTypesPage.assertNewContentFound("dog");
     }
 
 
@@ -96,9 +96,9 @@ public class PetTypeTest {
         petTypesPage.assertPageIsLoaded();
         petTypesPage.clickEditSpecialty();
         editPetTypePage.assertPageIsLoaded();
-        editPetTypePage.editContent("dog");
+        editPetTypePage.editContent("mouse");
         petTypesPage.assertPageIsLoaded();
-        petTypesPage.assertEditedContentFound("dog");
+        petTypesPage.assertEditedContentFound("mouse");
     }
 
     @Test

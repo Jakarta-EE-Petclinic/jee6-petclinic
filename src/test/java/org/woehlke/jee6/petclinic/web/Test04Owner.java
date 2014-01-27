@@ -14,6 +14,7 @@ import org.openqa.selenium.WebDriver;
 import org.woehlke.jee6.petclinic.web.pages.*;
 
 import java.net.URL;
+import java.util.Date;
 import java.util.logging.Logger;
 
 import static org.jboss.arquillian.graphene.Graphene.goTo;
@@ -27,9 +28,9 @@ import static org.jboss.arquillian.graphene.Graphene.goTo;
  * To change this template use File | Settings | File Templates.
  */
 @RunWith(Arquillian.class)
-public class OwnerTest {
+public class Test04Owner {
 
-    private static Logger log = Logger.getLogger(OwnerTest.class.getName());
+    private static Logger log = Logger.getLogger(Test04Owner.class.getName());
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
@@ -59,6 +60,15 @@ public class OwnerTest {
 
     @Page
     private EditOwnerPage editOwnerPage;
+
+    @Page
+    private NewPetPage newPetPage;
+
+    @Page
+    private PetTypesPage petTypesPage;
+
+    @Page
+    private NewPetTypePage newPetTypePage;
 
     @Test
     @InSequence(1)
@@ -138,6 +148,33 @@ public class OwnerTest {
         editOwnerPage.editContent("Willy","Wombel","Elbchaussee 242","Hamburg","04012345678");
         showOwnerPage.assertPageIsLoaded();
         showOwnerPage.assertContent("Willy","Wombel","Elbchaussee 242","Hamburg","04012345678");
+    }
+
+    @Test
+    @InSequence(8)
+    @RunAsClient
+    public void testAddNewPet() {
+        goTo(PetTypesPage.class);
+        petTypesPage.assertPageIsLoaded();
+        petTypesPage.clickAddNewPetType();
+        newPetTypePage.addNewContent("cat");
+        petTypesPage.clickAddNewPetType();
+        newPetTypePage.addNewContent("dog");
+        petTypesPage.clickAddNewPetType();
+        newPetTypePage.addNewContent("mouse");
+        goTo(FindOwnersPage.class);
+        findOwnersPage.assertPageIsLoaded();
+        findOwnersPage.clickSearch();
+        ownersPage.assertPageIsLoaded();
+        ownersPage.clickShowOwner();
+        showOwnerPage.assertPageIsLoaded();
+        showOwnerPage.clickAddNewPet();
+        newPetPage.assertPageIsLoaded();
+        Date birthDate1 = new Date(113, 04, 15);
+        Date birthDate2 = new Date(112, 07, 03);
+        newPetPage.setContent("Tomcat", birthDate1, "cat");
+        showOwnerPage.clickAddNewPet();
+        newPetPage.setContent("Bully", birthDate2, "dog");
     }
 
 }
