@@ -1,4 +1,4 @@
-package org.woehlke.jee6.petclinic.web;
+package org.woehlke.jee6.petclinic.web.pages;
 
 import org.jboss.arquillian.drone.api.annotation.Drone;
 import org.jboss.arquillian.graphene.page.Location;

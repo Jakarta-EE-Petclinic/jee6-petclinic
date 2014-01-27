@@ -1,4 +1,4 @@
-package org.woehlke.jee6.petclinic.web;
+package org.woehlke.jee6.petclinic.web.pages;
 
 import org.jboss.arquillian.graphene.page.Location;
 import org.junit.Assert;
@@ -10,33 +10,33 @@ import org.openqa.selenium.support.FindBy;
  * Created with IntelliJ IDEA.
  * User: tw
  * Date: 26.01.14
- * Time: 18:56
+ * Time: 17:23
  * To change this template use File | Settings | File Templates.
  */
-@Location("petTypes.jsf")
-public class PetTypesPage {
+@Location("specialties.jsf")
+public class SpecialtiesPage {
 
-    @FindBy(id="petTypes")
-    private WebElement petTypes;
+    @FindBy(id="specialties")
+    private WebElement specialties;
 
-    @FindBy(id="petTypesForm:getNewPetTypeForm")
-    private WebElement getNewPetTypeForm;
+    @FindBy(id="specialtiesForm:addNewSpecialty")
+    private WebElement addNewSpecialty;
 
-    @FindBy(id="petTypesForm:petTypesTable:0:name")
+    @FindBy(id="specialtiesForm:specialtiesTable:0:name")
     private WebElement nameInTable;
 
-    @FindBy(id="petTypesForm:petTypesTable:0:edit")
+    @FindBy(id="specialtiesForm:specialtiesTable:0:edit")
     private WebElement editInTable;
 
-    @FindBy(id="petTypesForm:petTypesTable:0:delete")
+    @FindBy(id="specialtiesForm:specialtiesTable:0:delete")
     private WebElement deleteInTable;
 
-    public void assertPageIsLoaded() {
-        Assert.assertTrue(petTypes.isDisplayed());
+    public void assertPageIsLoaded(){
+        Assert.assertTrue(specialties.isDisplayed());
     }
 
-    public void clickAddNewPetType() {
-        getNewPetTypeForm.click();
+    public void clickAddNewSpecialty(){
+        addNewSpecialty.click();
     }
 
     public void assertNewContentFound(String content) {

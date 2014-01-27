@@ -11,6 +11,10 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
+import org.woehlke.jee6.petclinic.web.pages.EditPetTypePage;
+import org.woehlke.jee6.petclinic.web.pages.HelloPage;
+import org.woehlke.jee6.petclinic.web.pages.NewPetTypePage;
+import org.woehlke.jee6.petclinic.web.pages.PetTypesPage;
 
 import java.net.URL;
 import java.util.logging.Logger;

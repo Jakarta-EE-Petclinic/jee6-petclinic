@@ -1,4 +1,4 @@
-package org.woehlke.jee6.petclinic.web;
+package org.woehlke.jee6.petclinic.web.pages;
 
 import org.junit.Assert;
 import org.openqa.selenium.WebElement;

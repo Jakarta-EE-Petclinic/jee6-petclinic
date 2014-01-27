@@ -1,4 +1,4 @@
-package org.woehlke.jee6.petclinic.web;
+package org.woehlke.jee6.petclinic.web.pages;
 
 import org.junit.Assert;
 import org.openqa.selenium.WebElement;
@@ -11,23 +11,22 @@ import org.openqa.selenium.support.FindBy;
  * Time: 18:56
  * To change this template use File | Settings | File Templates.
  */
-public class EditPetTypePage {
+public class NewPetTypePage {
 
-    @FindBy(id="editPetType")
-    private WebElement editPetType;
+    @FindBy(id="addNewPetType")
+    private WebElement addNewPetType;
 
-    @FindBy(id="editPetTypeForm:name")
+    @FindBy(id="addNewPetTypeForm:name")
     private WebElement name;
 
-    @FindBy(id="editPetTypeForm:save")
+    @FindBy(id="addNewPetTypeForm:save")
     private WebElement save;
 
-
     public void assertPageIsLoaded() {
-        Assert.assertTrue(editPetType.isDisplayed());
+        Assert.assertTrue(addNewPetType.isDisplayed());
     }
 
-    public void editContent(String content) {
+    public void addNewContent(String content) {
         name.clear();
         name.sendKeys(content);
         save.click();

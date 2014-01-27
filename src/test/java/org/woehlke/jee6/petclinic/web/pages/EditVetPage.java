@@ -1,4 +1,4 @@
-package org.woehlke.jee6.petclinic.web;
+package org.woehlke.jee6.petclinic.web.pages;
 
 import org.junit.Assert;
 import org.openqa.selenium.WebElement;
@@ -8,28 +8,28 @@ import org.openqa.selenium.support.FindBy;
  * Created with IntelliJ IDEA.
  * User: tw
  * Date: 26.01.14
- * Time: 20:51
+ * Time: 21:18
  * To change this template use File | Settings | File Templates.
  */
-public class NewVetPage {
+public class EditVetPage {
 
-    @FindBy(id="addNewVeterinarian")
-    private WebElement addNewVeterinarian;
+    @FindBy(id="editVeterinarian")
+    private WebElement editVeterinarian;
 
-    @FindBy(id="addNewVeterinarianForm:firstName")
+    @FindBy(id="editVeterinarianForm:firstName")
     private WebElement firstName;
 
-    @FindBy(id="addNewVeterinarianForm:lastName")
+    @FindBy(id="editVeterinarianForm:lastName")
     private WebElement lastName;
 
-    @FindBy(id="addNewVeterinarianForm:save")
+    @FindBy(id="editVeterinarianForm:save")
     private WebElement save;
 
     public void assertPageIsLoaded() {
-        Assert.assertTrue(addNewVeterinarian.isDisplayed());
+        Assert.assertTrue(editVeterinarian.isDisplayed());
     }
 
-    public void addNewContent(String firstName,String lastName) {
+    public void editContent(String firstName,String lastName) {
         this.firstName.clear();
         this.firstName.sendKeys(firstName);
         this.lastName.clear();

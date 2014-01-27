@@ -13,6 +13,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.woehlke.jee6.petclinic.web.pages.FindOwnersPage;
+import org.woehlke.jee6.petclinic.web.pages.HelloPage;
+import org.woehlke.jee6.petclinic.web.pages.NewOwnerPage;
+import org.woehlke.jee6.petclinic.web.pages.OwnersPage;
 
 import java.net.URL;
 import java.util.logging.Logger;
