@@ -1,8 +1,13 @@
 package org.woehlke.jee6.petclinic.web.pages;
 
+import org.joda.time.DateTime;
 import org.junit.Assert;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created with IntelliJ IDEA.
@@ -37,6 +42,27 @@ public class ShowOwnerPage {
     @FindBy(id="showOwnerForm:addPet")
     private WebElement addPet;
 
+    @FindBy(id="showOwnerForm:petsAndVisitsTable:0:visitsTable:editPet")
+    private WebElement editFirstPet;
+
+    @FindBy(id="showOwnerForm:petsAndVisitsTable:0:petsName")
+    private WebElement firstPetsName;
+
+    @FindBy(id="showOwnerForm:petsAndVisitsTable:0:petsBirthDate")
+    private WebElement firstPetsBirthDate;
+
+    @FindBy(id="showOwnerForm:petsAndVisitsTable:0:petsType")
+    private WebElement firstPetsType;
+
+    @FindBy(id="showOwnerForm:petsAndVisitsTable:1:petsName")
+    private WebElement secondPetsName;
+
+    @FindBy(id="showOwnerForm:petsAndVisitsTable:1:petsBirthDate")
+    private WebElement secondPetsBirthDate;
+
+    @FindBy(id="showOwnerForm:petsAndVisitsTable:1:petsType")
+    private WebElement secondPetsType;
+
     public void assertPageIsLoaded() {
         Assert.assertTrue(showOwnerForm.isDisplayed());
     }
@@ -59,5 +85,25 @@ public class ShowOwnerPage {
 
     public void clickAddNewPet() {
         addPet.click();
+    }
+
+    public void clickEditFirstPet() {
+        editFirstPet.click();
+    }
+
+    public void assertFirstPetContent(String petsName, Date birthDate, String petType) {
+        Assert.assertEquals(petsName,firstPetsName.getText());
+        Assert.assertEquals(petType,firstPetsType.getText());
+        Date birthDateTmp =  new DateTime(birthDate.getTime()).minusDays(1).toDate();
+        Assert.assertEquals(DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.ENGLISH).format(birthDateTmp),firstPetsBirthDate.getText());
+
+    }
+
+    public void assertSecondPetContent(String petsName, Date birthDate, String petType) {
+        Assert.assertEquals(petsName,secondPetsName.getText());
+        Assert.assertEquals(petType,secondPetsType.getText());
+        Date birthDateTmp =  new DateTime(birthDate.getTime()).minusDays(1).toDate();
+        Assert.assertEquals(DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.ENGLISH).format(birthDateTmp),secondPetsBirthDate.getText());
+
     }
 }

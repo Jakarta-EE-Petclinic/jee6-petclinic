@@ -65,6 +65,9 @@ public class Test04Owner {
     private NewPetPage newPetPage;
 
     @Page
+    private EditPetPage editPetPage;
+
+    @Page
     private PetTypesPage petTypesPage;
 
     @Page
@@ -170,11 +173,30 @@ public class Test04Owner {
         showOwnerPage.assertPageIsLoaded();
         showOwnerPage.clickAddNewPet();
         newPetPage.assertPageIsLoaded();
-        Date birthDate1 = new Date(113, 04, 15);
-        Date birthDate2 = new Date(112, 07, 03);
+        Date birthDate1 = new Date(113, 04, 15); //15.05.2013
+        Date birthDate2 = new Date(112, 07, 03); //03.08.2012
         newPetPage.setContent("Tomcat", birthDate1, "cat");
         showOwnerPage.clickAddNewPet();
         newPetPage.setContent("Bully", birthDate2, "dog");
+        showOwnerPage.assertFirstPetContent("Tomcat", birthDate1, "cat");
+        showOwnerPage.assertSecondPetContent("Bully", birthDate2, "dog");
+    }
+
+    @Test
+    @InSequence(8)
+    @RunAsClient
+    public void testEditPet() {
+        goTo(FindOwnersPage.class);
+        findOwnersPage.assertPageIsLoaded();
+        findOwnersPage.clickSearch();
+        ownersPage.assertPageIsLoaded();
+        ownersPage.clickShowOwner();
+        showOwnerPage.assertPageIsLoaded();
+        showOwnerPage.clickEditFirstPet();
+        editPetPage.assertPageIsLoaded();
+        Date birthDate = new Date(110, 05, 01); //01.06.2010
+        editPetPage.setContent("Speedy", birthDate, "mouse");
+        showOwnerPage.assertFirstPetContent("Speedy", birthDate, "mouse");
     }
 
 }

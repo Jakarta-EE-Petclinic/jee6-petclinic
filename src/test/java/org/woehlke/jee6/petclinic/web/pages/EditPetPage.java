@@ -14,31 +14,32 @@ import java.util.List;
  * Created with IntelliJ IDEA.
  * User: tw
  * Date: 27.01.14
- * Time: 16:49
+ * Time: 19:58
  * To change this template use File | Settings | File Templates.
  */
-public class NewPetPage {
+public class EditPetPage {
 
-    @FindBy(id="addNewPetForm")
-    private WebElement addNewPetForm;
+    @FindBy(id="editPetForm")
+    private WebElement editPetForm;
 
-    @FindBy(id="addNewPetForm:petName")
+    @FindBy(id="editPetForm:petName")
     private WebElement petName;
 
-    @FindBy(id="addNewPetForm:petBirthDate")
+    @FindBy(id="editPetForm:petBirthDate")
     private RichFacesCalendar petBirthDate;
 
-    @FindBy(id="addNewPetForm:petType")
+    @FindBy(id="editPetForm:petType")
     private WebElement petType;
 
-    @FindBy(id="addNewPetForm:add")
-    private WebElement add;
+    @FindBy(id="editPetForm:save")
+    private WebElement save;
 
     public void assertPageIsLoaded() {
-        Assert.assertTrue(addNewPetForm.isDisplayed());
+        Assert.assertTrue(editPetForm.isDisplayed());
     }
 
-    public void setContent(String petName, Date petBirthDate, String petType){
+    public void setContent(String petName, Date petBirthDate, String petType) {
+        this.petName.clear();
         this.petName.sendKeys(petName);
         DateTime dateTime = new  DateTime(petBirthDate.getTime());
         this.petBirthDate.setDate(dateTime);
@@ -49,6 +50,6 @@ public class NewPetPage {
                 break;
             }
         }
-        add.click();
+        save.click();
     }
 }

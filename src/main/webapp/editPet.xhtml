@@ -6,8 +6,8 @@
                 xmlns:rich="http://richfaces.org">
 
         <ui:define name="content">
-            <h2>#{msg.editPet}</h2>
-            <h:form>
+            <h2 id="editPet">#{msg.editPet}</h2>
+            <h:form id="editPetForm">
 
                 <h:panelGroup>
                     <h:messages id="messages" layout="block" errorStyle="color: red"/>
@@ -34,7 +34,7 @@
                         <f:selectItems value="#{ownerController.allPetTypes}"
                                        var="petType" itemLabel="#{petType.name}" itemValue="#{petType.id}" />
                     </h:selectOneListbox>
-                    <h:commandButton id="add" value="#{msg.save}" style="float: left"
+                    <h:commandButton id="save" value="#{msg.save}" style="float: left"
                                      action="#{ownerController.saveEditedPet}" styleClass="btn"/>
 
                 </h:panelGrid>
