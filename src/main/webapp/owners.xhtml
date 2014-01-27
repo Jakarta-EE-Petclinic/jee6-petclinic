@@ -20,26 +20,26 @@
                             <h:outputText value="#{msg.name}"/>
                         </f:facet>
                         <h:commandLink id="showOwner" action="#{ownerController.showOwner(owner.id)}">
-                            <h:outputText value="#{owner.firstName}"/>&#160;<h:outputText value="#{owner.lastName}"/>
+                            <h:outputText id="firstName" value="#{owner.firstName}"/>&#160;<h:outputText id="lastName" value="#{owner.lastName}"/>
                         </h:commandLink>
                     </h:column>
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="#{msg.address}"/>
                         </f:facet>
-                        <h:outputText value="#{owner.address}"/>
+                        <h:outputText id="address" value="#{owner.address}"/>
                     </h:column>
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="#{msg.city}"/>
                         </f:facet>
-                        <h:outputText value="#{owner.city}"/>
+                        <h:outputText id="city" value="#{owner.city}"/>
                     </h:column>
                     <h:column>
                         <f:facet name="header">
                             <h:outputText value="#{msg.telephone}"/>
                         </f:facet>
-                        <h:outputText value="#{owner.telephone}"/>
+                        <h:outputText id="telephone" value="#{owner.telephone}"/>
                     </h:column>
                 </h:dataTable>
 

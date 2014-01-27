@@ -107,31 +107,15 @@ public class OwnerTest {
     @InSequence(6)
     @RunAsClient
     public void testAddNewOwner() {
-        String url = deploymentUrl.toExternalForm() + "findOwners.jsf";
-        log.info("url: " + url);
-        driver.get(url);
-        //driver.waitForPageToLoad("15000");
-        Assert.assertTrue(driver.findElement(By.id("findOwners")).isDisplayed());
-        driver.findElement(By.id("findOwnersForm:search")).click();
-        //driver.waitForPageToLoad("15000");
-        Assert.assertTrue(driver.findElement(By.id("owners")).isDisplayed());
-        driver.findElement(By.id("ownersForm:getNewOwnerForm")).click();
-        //driver.waitForPageToLoad("15000");
-        Assert.assertTrue(driver.findElement(By.id("addNewOwner")).isDisplayed());
-        driver.findElement(By.id("addNewOwnerForm:firstName")).sendKeys("Thomas");
-        driver.findElement(By.id("addNewOwnerForm:lastName")).sendKeys("Woehlke");
-        driver.findElement(By.id("addNewOwnerForm:address")).sendKeys("Schoenhauser Allee 42");
-        driver.findElement(By.id("addNewOwnerForm:city")).sendKeys("Berlin");
-        driver.findElement(By.id("addNewOwnerForm:telephone")).sendKeys("03012345678");
-        driver.findElement(By.id("addNewOwnerForm:save")).click();
-        //driver.waitForPageToLoad("15000");
-        Assert.assertTrue(driver.findElement(By.id("owners")).isDisplayed());
-        Assert.assertTrue(driver.findElement(By.id("ownersForm:ownersTable:0:showOwner")).isDisplayed());
-        Assert.assertTrue(driver.findElement(By.xpath("//td/a[contains(text(), 'Thomas')]")).isDisplayed());
-        Assert.assertTrue(driver.findElement(By.xpath("//td/a[contains(text(), 'Woehlke')]")).isDisplayed());
-        Assert.assertTrue(driver.findElement(By.xpath("//td[contains(text(), 'Schoenhauser Allee 42')]")).isDisplayed());
-        Assert.assertTrue(driver.findElement(By.xpath("//td[contains(text(), 'Berlin')]")).isDisplayed());
-        Assert.assertTrue(driver.findElement(By.xpath("//td[contains(text(), '03012345678')]")).isDisplayed());
+        goTo(FindOwnersPage.class);
+        findOwnersPage.assertPageIsLoaded();
+        findOwnersPage.clickSearch();
+        ownersPage.assertPageIsLoaded();
+        ownersPage.clickNewOwner();
+        newOwnerPage.assertPageIsLoaded();
+        newOwnerPage.addNewContent("Thomas","Woehlke","Schoenhauser Allee 42","Berlin","03012345678");
+        ownersPage.assertPageIsLoaded();
+        ownersPage.assertNewContentFound("Thomas","Woehlke","Schoenhauser Allee 42","Berlin","03012345678");
     }
 
     @Test
