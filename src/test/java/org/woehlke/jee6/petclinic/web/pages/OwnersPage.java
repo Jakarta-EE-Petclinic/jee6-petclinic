@@ -57,4 +57,8 @@ public class OwnersPage {
         Assert.assertEquals(telephone,this.telephone.getText());
         Assert.assertTrue(showOwner.isDisplayed());
     }
+
+    public void clickShowOwner() {
+        showOwner.click();
+    }
 }

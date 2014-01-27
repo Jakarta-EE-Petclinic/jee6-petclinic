@@ -8,15 +8,10 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.woehlke.jee6.petclinic.web.pages.FindOwnersPage;
-import org.woehlke.jee6.petclinic.web.pages.HelloPage;
-import org.woehlke.jee6.petclinic.web.pages.NewOwnerPage;
-import org.woehlke.jee6.petclinic.web.pages.OwnersPage;
+import org.woehlke.jee6.petclinic.web.pages.*;
 
 import java.net.URL;
 import java.util.logging.Logger;
@@ -58,6 +53,12 @@ public class OwnerTest {
 
     @Page
     private NewOwnerPage newOwnerPage;
+
+    @Page
+    private ShowOwnerPage showOwnerPage;
+
+    @Page
+    private EditOwnerPage editOwnerPage;
 
     @Test
     @InSequence(1)
@@ -126,33 +127,17 @@ public class OwnerTest {
     @InSequence(7)
     @RunAsClient
     public void testEditOwner() {
-        String url = deploymentUrl.toExternalForm() + "findOwners.jsf";
-        log.info("url: " + url);
-        driver.get(url);
-        Assert.assertTrue(driver.findElement(By.id("findOwners")).isDisplayed());
-        driver.findElement(By.id("findOwnersForm:search")).click();
-        Assert.assertTrue(driver.findElement(By.id("owners")).isDisplayed());
-        driver.findElement(By.id("ownersForm:ownersTable:0:showOwner")).click();
-        Assert.assertTrue(driver.findElement(By.id("showOwnerForm")).isDisplayed());
-        driver.findElement(By.id("showOwnerForm:edit")).click();
-        Assert.assertTrue(driver.findElement(By.id("editOwnerForm")).isDisplayed());
-        driver.findElement(By.id("editOwnerForm:firstName")).clear();
-        driver.findElement(By.id("editOwnerForm:lastName")).clear();
-        driver.findElement(By.id("editOwnerForm:address")).clear();
-        driver.findElement(By.id("editOwnerForm:city")).clear();
-        driver.findElement(By.id("editOwnerForm:telephone")).clear();
-        driver.findElement(By.id("editOwnerForm:firstName")).sendKeys("Willy");
-        driver.findElement(By.id("editOwnerForm:lastName")).sendKeys("Wombel");
-        driver.findElement(By.id("editOwnerForm:address")).sendKeys("Elbchaussee 242");
-        driver.findElement(By.id("editOwnerForm:city")).sendKeys("Hamburg");
-        driver.findElement(By.id("editOwnerForm:telephone")).sendKeys("04012345678");
-        driver.findElement(By.id("editOwnerForm:save")).click();
-        Assert.assertTrue(driver.findElement(By.id("showOwnerForm")).isDisplayed());
-        Assert.assertTrue(driver.findElement(By.xpath("//span[contains(text(), 'Willy')]")).isDisplayed());
-        Assert.assertTrue(driver.findElement(By.xpath("//span[contains(text(), 'Wombel')]")).isDisplayed());
-        Assert.assertTrue(driver.findElement(By.xpath("//span[contains(text(), 'Elbchaussee 242')]")).isDisplayed());
-        Assert.assertTrue(driver.findElement(By.xpath("//span[contains(text(), 'Hamburg')]")).isDisplayed());
-        Assert.assertTrue(driver.findElement(By.xpath("//span[contains(text(), '04012345678')]")).isDisplayed());
+        goTo(FindOwnersPage.class);
+        findOwnersPage.assertPageIsLoaded();
+        findOwnersPage.clickSearch();
+        ownersPage.assertPageIsLoaded();
+        ownersPage.clickShowOwner();
+        showOwnerPage.assertPageIsLoaded();
+        showOwnerPage.clickEditOwner();
+        editOwnerPage.assertPageIsLoaded();
+        editOwnerPage.editContent("Willy","Wombel","Elbchaussee 242","Hamburg","04012345678");
+        showOwnerPage.assertPageIsLoaded();
+        showOwnerPage.assertContent("Willy","Wombel","Elbchaussee 242","Hamburg","04012345678");
     }
 
 }
