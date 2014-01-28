@@ -65,6 +65,9 @@ public class Test04Owner {
     private NewPetPage newPetPage;
 
     @Page
+    private NewVisitPage newVisitPage;
+
+    @Page
     private EditPetPage editPetPage;
 
     @Page
@@ -183,7 +186,7 @@ public class Test04Owner {
     }
 
     @Test
-    @InSequence(8)
+    @InSequence(9)
     @RunAsClient
     public void testEditPet() {
         goTo(FindOwnersPage.class);
@@ -199,4 +202,23 @@ public class Test04Owner {
         showOwnerPage.assertFirstPetContent("Speedy", birthDate, "mouse");
     }
 
+    @Test
+    @InSequence(10)
+    @RunAsClient
+    public void testAddVisitToFirstPet() {
+        goTo(FindOwnersPage.class);
+        findOwnersPage.assertPageIsLoaded();
+        findOwnersPage.clickSearch();
+        ownersPage.assertPageIsLoaded();
+        ownersPage.clickShowOwner();
+        showOwnerPage.assertPageIsLoaded();
+        showOwnerPage.addVisitToFirstPet();
+        newVisitPage.assertPageIsLoaded();
+        Date birthDate = new Date(110, 05, 01); //01.06.2010
+        newVisitPage.assertOwnerContent("Willy","Wombel");
+        newVisitPage.assertPetContent("Speedy", birthDate, "mouse");
+        Date visitDate = new Date(114, 01, 16); //16.01.2014
+        newVisitPage.setNewContent(visitDate,"get milk");
+        showOwnerPage.assertFirstVisitToFirstPet(visitDate,"get milk");
+    }
 }

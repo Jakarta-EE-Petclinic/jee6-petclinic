@@ -62,9 +62,9 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText id="description" value="#{msg.description}"/>
+                                <h:outputText value="#{msg.description}"/>
                             </f:facet>
-                            <h:outputText value="#{visit.description}"/>
+                            <h:outputText id="description" value="#{visit.description}"/>
                             <f:facet name="footer">
                                 <h:commandLink id="addVisit" action="#{ownerController.addVisitToPetForm(ownersPet.id)}" >#{msg.addVisit}</h:commandLink>
                             </f:facet>

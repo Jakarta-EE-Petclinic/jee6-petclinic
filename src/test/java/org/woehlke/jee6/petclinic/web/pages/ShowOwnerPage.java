@@ -45,6 +45,9 @@ public class ShowOwnerPage {
     @FindBy(id="showOwnerForm:petsAndVisitsTable:0:visitsTable:editPet")
     private WebElement editFirstPet;
 
+    @FindBy(id="showOwnerForm:petsAndVisitsTable:0:visitsTable:addVisit")
+    private WebElement newVisitForFirstPet;
+
     @FindBy(id="showOwnerForm:petsAndVisitsTable:0:petsName")
     private WebElement firstPetsName;
 
@@ -62,6 +65,12 @@ public class ShowOwnerPage {
 
     @FindBy(id="showOwnerForm:petsAndVisitsTable:1:petsType")
     private WebElement secondPetsType;
+
+    @FindBy(id="showOwnerForm:petsAndVisitsTable:0:visitsTable:0:date")
+    private WebElement firstPetsFirstVisitDate;
+
+    @FindBy(id="showOwnerForm:petsAndVisitsTable:0:visitsTable:0:description")
+    private WebElement firstPetsFirstVisitDescription;
 
     public void assertPageIsLoaded() {
         Assert.assertTrue(showOwnerForm.isDisplayed());
@@ -105,5 +114,15 @@ public class ShowOwnerPage {
         Date birthDateTmp =  new DateTime(birthDate.getTime()).minusDays(1).toDate();
         Assert.assertEquals(DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.ENGLISH).format(birthDateTmp),secondPetsBirthDate.getText());
 
+    }
+
+    public void addVisitToFirstPet() {
+        newVisitForFirstPet.click();
+    }
+
+    public void assertFirstVisitToFirstPet(Date visitDate, String description) {
+        Date visitDateTmp =  new DateTime(visitDate.getTime()).minusDays(1).toDate();
+        Assert.assertEquals(DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.ENGLISH).format(visitDateTmp),firstPetsFirstVisitDate.getText());
+        Assert.assertEquals(description,firstPetsFirstVisitDescription.getText());
     }
 }
