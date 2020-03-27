@@ -1057,7 +1057,7 @@
                         <phase>site</phase>
                         <configuration>
                             <excludeGroupIds>org.webjars,org.jclouds,org.jboss.as,xml-resolver,commons-configuration,org.codehaus.plexus,commons-digester,junit,log4j</excludeGroupIds>
-                            <excludeArtifactIds>weld-probe-core,commons-configuration,jdk.tools</excludeArtifactIds>
+                            <excludeArtifactIds>weld-probe-core,commons-configuration,jdk.tools,maven-antrun-plugin</excludeArtifactIds>
                             <failOnMissingClassifierArtifact>false</failOnMissingClassifierArtifact>
                             <reportSets>
                                 <reportSet>
