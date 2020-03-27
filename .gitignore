@@ -7,3 +7,5 @@ target/
 org.woehlke.jee6.*/
 x.txt
 x*.txt
+x_*.txt
+/YY.txt
