@@ -13,10 +13,10 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <jboss.version>7.1.1.Final</jboss.version>
+        <version.jboss.as>7.1.1.Final</version.jboss.as>
+        <version.jboss.maven.plugin>7.3.Final</version.jboss.maven.plugin>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <version.jboss.maven.plugin>7.3.Final</version.jboss.maven.plugin>
         <version.war.plugin>2.1.1</version.war.plugin>
         <version.jboss.bom>1.0.7.Final</version.jboss.bom>
         <version.richfaces.bom>5.0.0.Alpha2</version.richfaces.bom>
@@ -62,14 +62,16 @@
             <id>central</id>
             <name>Central Repository</name>
             <url>https://repo1.maven.org/maven2/</url>
+            <releases><enabled>true</enabled></releases>
+            <snapshots><enabled>false</enabled></snapshots>
         </repository>
-        <!--
         <repository>
-            <id>redhat-ga</id>
-            <name>Redhat GA Repository</name>
-            <url>https://maven.repository.redhat.com/ga/</url>
+            <id>jcenter</id>
+            <name>JCenter Repository</name>
+            <url>https://jcenter.bintray.com/</url>
+            <releases><enabled>true</enabled></releases>
+            <snapshots><enabled>false</enabled></snapshots>
         </repository>
-        -->
         <repository>
             <id>jboss-releases</id>
             <name>JBoss Releases Repository</name>
@@ -86,9 +88,16 @@
             <url>https://oss.sonatype.org/content/repositories/releases/</url>
         </repository>
         <repository>
-            <id>icm</id>
-            <name>ICM Repository</name>
-            <url>http://maven.icm.edu.pl/artifactory/repo/</url>
+            <id>jboss-public</id>
+            <name>JBoss Public Repository</name>
+            <url>https://repository.jboss.org/nexus/content/repositories/public/</url>
+        </repository>
+        <repository>
+            <id>redhat-ga</id>
+            <name>Redhat GA Repository</name>
+            <url>https://maven.repository.redhat.com/ga/</url>
+            <releases><enabled>true</enabled></releases>
+            <snapshots><enabled>false</enabled></snapshots>
         </repository>
     </repositories>
 
@@ -126,6 +135,12 @@
                 <version>7.1.1.Final</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.as</groupId>
+                <artifactId>jboss-as-dist</artifactId>
+                <version>7.1.1.Final</version>
+                <type>pom</type>
             </dependency>
 
             <!-- Arquillian Core dependencies -->
@@ -250,7 +265,7 @@
             <dependency>
                 <groupId>org.jboss.as</groupId>
                 <artifactId>jboss-as-arquillian-container-managed</artifactId>
-                <version>7.1.1.Final</version>
+                <version>${version.jboss.as}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -461,7 +476,7 @@
         <dependency>
             <groupId>org.jboss.as</groupId>
             <artifactId>jboss-as-dist</artifactId>
-            <version>7.1.1.Final</version>
+            <version>${version.jboss.as}</version>
             <type>zip</type>
         </dependency>
         </dependencies>
@@ -1041,8 +1056,8 @@
                         <id>report</id>
                         <phase>site</phase>
                         <configuration>
-                            <excludeGroupIds>org.webjars,org.jclouds,org.jboss.as</excludeGroupIds>
-                            <excludeArtifactIds>weld-probe-core,commons-configuration,junit,jdk.tools</excludeArtifactIds>
+                            <excludeGroupIds>org.webjars,org.jclouds,org.jboss.as,xml-resolver,commons-configuration,org.codehaus.plexus,commons-digester,junit,log4j</excludeGroupIds>
+                            <excludeArtifactIds>weld-probe-core,commons-configuration,jdk.tools</excludeArtifactIds>
                             <failOnMissingClassifierArtifact>false</failOnMissingClassifierArtifact>
                             <reportSets>
                                 <reportSet>
@@ -1059,6 +1074,9 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-scm-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
             </plugin>
 
             <plugin>
@@ -1076,7 +1094,7 @@
                 <artifactId>maven-site-plugin</artifactId>
                 <inherited>true</inherited>
                 <configuration>
-                    <locales>en</locales>
+                    <locales>en,de</locales>
                     <outputDirectory>target/site</outputDirectory>
                     <generateReports>true</generateReports>
                 </configuration>
@@ -1092,10 +1110,12 @@
                 <groupId>org.jboss.as.plugins</groupId>
                 <artifactId>jboss-as-maven-plugin</artifactId>
             </plugin>
+            <!--
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>native2ascii-maven-plugin</artifactId>
             </plugin>
+            -->
         </plugins>
     </build>
 
@@ -1131,6 +1151,9 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
+                <configuration>
+                    <skipEmptyReport>true</skipEmptyReport>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -1144,11 +1167,15 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
                 <configuration>
+                    <skip>true</skip>
                     <onlyAnalyze>org.woehlke.*</onlyAnalyze>
                     <omitVisitors>FindDeadLocalStores</omitVisitors>
                     <findbugsXmlOutput>true</findbugsXmlOutput>
@@ -1160,11 +1187,15 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jxr-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
                 <configuration>
+                    <skip>true</skip>
                     <minimumTokens>100</minimumTokens>
                     <targetJdk>${java.version}</targetJdk>
                     <excludeRoots>
@@ -1175,6 +1206,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-report-plugin</artifactId>
+                <configuration>
+                    <skipFailsafeReport>true</skipFailsafeReport>
+                    <skipSurefireReport>true</skipSurefireReport>
+                </configuration>
             </plugin>
         </plugins>
     </reporting>

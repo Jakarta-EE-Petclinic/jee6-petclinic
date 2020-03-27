@@ -14,6 +14,7 @@ import org.openqa.selenium.WebDriver;
 import org.woehlke.jee6.petclinic.web.pages.*;
 
 import java.net.URL;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Logger;
 
@@ -176,8 +177,11 @@ public class Test04Owner {
         showOwnerPage.assertPageIsLoaded();
         showOwnerPage.clickAddNewPet();
         newPetPage.assertPageIsLoaded();
-        Date birthDate1 = new Date(113, 04, 15); //15.05.2013
-        Date birthDate2 = new Date(112, 07, 03); //03.08.2012
+        Calendar c = Calendar.getInstance();
+        c.set(113, 04, 15); //15.05.2013
+        Date birthDate1 = c.getTime();
+        c.set(112, 07, 03); //03.08.2012
+        Date birthDate2 = c.getTime();
         newPetPage.setContent("Tomcat", birthDate1, "cat");
         showOwnerPage.clickAddNewPet();
         newPetPage.setContent("Bully", birthDate2, "dog");
@@ -197,7 +201,9 @@ public class Test04Owner {
         showOwnerPage.assertPageIsLoaded();
         showOwnerPage.clickEditFirstPet();
         editPetPage.assertPageIsLoaded();
-        Date birthDate = new Date(110, 05, 01); //01.06.2010
+        Calendar c = Calendar.getInstance();
+        c.set(110, 05, 01);//01.06.2010
+        Date birthDate = c.getTime();
         editPetPage.setContent("Speedy", birthDate, "mouse");
         showOwnerPage.assertFirstPetContent("Speedy", birthDate, "mouse");
     }
@@ -214,10 +220,13 @@ public class Test04Owner {
         showOwnerPage.assertPageIsLoaded();
         showOwnerPage.addVisitToFirstPet();
         newVisitPage.assertPageIsLoaded();
-        Date birthDate = new Date(110, 05, 01); //01.06.2010
+        Calendar c = Calendar.getInstance();
+        c.set(110, 05, 01);//01.06.2010
+        Date birthDate = c.getTime();
         newVisitPage.assertOwnerContent("Willy","Wombel");
         newVisitPage.assertPetContent("Speedy", birthDate, "mouse");
-        Date visitDate = new Date(114, 01, 16); //16.01.2014
+        c.set(114, 01, 16);//16.01.2014
+        Date visitDate = c.getTime();
         newVisitPage.setNewContent(visitDate,"get milk");
         showOwnerPage.assertFirstVisitToFirstPet(visitDate,"get milk");
     }
