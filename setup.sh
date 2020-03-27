@@ -4,7 +4,7 @@ echo "./mvnw -Psetup"
 ./mvnw -Psetup > x.txt
 
 echo "deprecated"
-grep -n "deprecated" > x_deprecated.txt
+grep -n "deprecated" x.txt > x_deprecated.txt
 echo "ERROR"
 grep -n "ERROR" x.txt > x_ERROR.txt
 echo "WARNING"
@@ -13,8 +13,5 @@ echo "Caused by"
 grep -n "Caused by" x.txt > x_Caused_by.txt
 echo "ArtifactResolutionException"
 grep -n "ArtifactResolutionException" x.txt > x_ArtifactResolutionException.txt
-
-#grep -n "ERROR" x.txt > x_ERROR.txt
-#grep -n "WARNING" x.txt > x_WARNING.txt
 
 echo "FINISHED"
